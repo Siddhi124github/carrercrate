@@ -1933,7 +1933,7 @@
         jobTitleInput.style.background = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid\"><circle cx=\"50\" cy=\"50\" fill=\"none\" stroke=\"%236c63ff\" stroke-width=\"10\" r=\"35\" stroke-dasharray=\"164.93361431346415 56.97787143782138\"><animateTransform attributeName=\"transform\" type=\"rotate\" repeatCount=\"indefinite\" dur=\"1s\" values=\"0 50 50;360 50 50\" keyTimes=\"0;1\"></animateTransform></circle></svg>') no-repeat right 10px center";
         jobTitleInput.style.backgroundSize = "20px 20px";
         
-        const res = await fetch("http://localhost:3001/suggest", {
+        const res = await fetch("/suggest", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ role })
@@ -2209,4 +2209,5 @@
     updatePreview();
   </script>
 </body>
+
 </html>
