@@ -712,7 +712,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function callCareerAI(type, input=null) {
         const payload = type === "skills-to-career" ? { type, skills: userSkills } : { type, input };
-        const response = await fetch("http://localhost:3001/career-ai", {
+        const response = await fetch(career-ai", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -792,5 +792,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
