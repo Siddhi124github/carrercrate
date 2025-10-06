@@ -1360,15 +1360,27 @@
     const email = loginForm.querySelector('input[type="email"]').value;
     const password = loginForm.querySelector('input[type="password"]').value;
 
-    auth.signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
+   signInWithEmailAndPassword(auth, email, password)
+    .then(userCredential => {
         const user = userCredential.user;
-        alert("Welcome back, " + (user.displayName || user.email));
-        closeModal();
-      })
-      .catch(error => {
-        alert("Login Error: " + error.message);
-      });
+
+        // ✅ Admin email
+        const adminEmail = "admin@careercrate.com";
+
+        if (user.email === adminEmail) {
+            alert("Welcome Admin!");
+            window.location.href = "admindashboard.html"; // 👈 change file name if needed
+        } else {
+            alert("Welcome back, " + (user.displayName || user.email));
+            window.location.href = "index.html";
+        }
+
+        authModal.classList.remove("active");
+    })
+    .catch(error => alert("Login Error: " + error.message));
+
+
+      
 });
 
 
@@ -1536,7 +1548,7 @@ setInterval(createParticle, 300);
         });
 </script>
 <!-- Firebase Auth Script -->
-<script type="module">
+<<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
 import {
     getAuth,
@@ -1548,7 +1560,7 @@ import {
     sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
 
-// Firebase config
+// ------------------ Firebase config ------------------
 const firebaseConfig = {
     apiKey: "AIzaSyCMTlja4NrE4Cv3_Cv79pRDEykQt8lW1XI",
     authDomain: "carrercrate.firebaseapp.com",
@@ -1558,12 +1570,12 @@ const firebaseConfig = {
     appId: "1:312167069617:web:a22835b5c4e45c61396f90",
 };
 
-// Initialize Firebase
+// ------------------ Initialize Firebase ------------------
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-// DOM elements
+// ------------------ DOM elements ------------------
 const loginForm = document.getElementById("loginForm");
 const signupForm = document.getElementById("signupForm");
 const resetForm = document.getElementById("resetForm");
@@ -1581,6 +1593,7 @@ window.googleLogin = function () {
             const user = result.user;
             alert("Welcome " + user.displayName);
             authModal.classList.remove("active");
+            window.location.href = "index.html"; // Google login -> normal user
         })
         .catch(error => alert("Google login failed: " + error.message));
 };
@@ -1597,25 +1610,36 @@ signupForm.addEventListener("submit", function (e) {
         .then(() => {
             alert("Signup successful! Welcome, " + name);
             authModal.classList.remove("active");
+            window.location.href = "index.html";
         })
         .catch(error => alert("Signup Error: " + error.message));
 });
 
-// ------------------ Login ------------------
+// ------------------ Login (Fixed Redirects) ------------------
 loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    const email = this.querySelector('input[type="email"]').value;
-    const password = this.querySelector('input[type="password"]').value;
+    const email = this.querySelector('input[type="email"]').value.trim();
+    const password = this.querySelector('input[type="password"]').value.trim();
 
     signInWithEmailAndPassword(auth, email, password)
         .then(userCredential => {
-            alert("Welcome back, " + (userCredential.user.displayName || userCredential.user.email));
+            const user = userCredential.user;
+            const adminEmail = "admin@careercrate.com";
+
+            if (user.email.toLowerCase() === adminEmail.toLowerCase()) {
+                alert("Welcome Admin!");
+                window.location.href = "admindashboard.html"; // ✅ redirect admin
+            } else {
+                alert("Welcome back, " + (user.displayName || user.email));
+                window.location.href = "index.html"; // ✅ normal user
+            }
+
             authModal.classList.remove("active");
         })
         .catch(error => alert("Login Error: " + error.message));
 });
 
-// ------------------ Show Reset Password Form ------------------
+// ------------------ Forgot Password ------------------
 forgotPasswordLink.addEventListener("click", function (e) {
     e.preventDefault();
     loginForm.style.display = "none";
@@ -1624,10 +1648,9 @@ forgotPasswordLink.addEventListener("click", function (e) {
     modalLeftTitle.textContent = "Reset Your Password";
     modalLeftText.textContent = "Enter your email and we will send you a reset link.";
     modalRightTitle.textContent = "Password Recovery";
-    toggleFormBtn.style.display = "none"; // hide toggle in reset mode
+    toggleFormBtn.style.display = "none";
 });
 
-// ------------------ Back to Login from Reset ------------------
 resetForm.querySelector(".back-to-login").addEventListener("click", function (e) {
     e.preventDefault();
     resetForm.style.display = "none";
@@ -1638,7 +1661,6 @@ resetForm.querySelector(".back-to-login").addEventListener("click", function (e)
     toggleFormBtn.style.display = "inline-block";
 });
 
-// ------------------ Handle Reset Form Submission ------------------
 resetForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const email = this.querySelector('input[type="email"]').value;
