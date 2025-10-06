@@ -34,7 +34,7 @@
             padding-top: 80px;
         }
 
-        /* Header - Exact Match */
+        /* Header */
         header {
             background: white;
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -61,6 +61,8 @@
             height: 70px;
             width: 250px;
             display: block;
+            background: var(--primary);
+            border-radius: 8px;
         }
 
         nav {
@@ -207,14 +209,13 @@
         }
 
         /* Interview Screen */
-       .interview-layout {
-    /* Remove fixed height and use flex grow */
-    height: auto;
-    min-height: 600px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
+        .interview-layout {
+            height: auto;
+            min-height: 600px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
         .interview-header {
             padding: 1.5rem 2rem;
@@ -242,13 +243,14 @@
             font-weight: 500;
         }
 
-       .chat-container {
-    flex: 1; /* Take available space */
-    min-height: 300px; /* Minimum height */
-    max-height: 400px; /* Maximum before scroll */
-    padding: 1.5rem;
-    overflow-y: auto;
-}
+        .chat-container {
+            flex: 1;
+            min-height: 300px;
+            max-height: 400px;
+            padding: 1.5rem;
+            overflow-y: auto;
+            border-bottom: 1px solid var(--border);
+        }
 
         .message {
             padding: 1.5rem 2rem;
@@ -256,6 +258,8 @@
             max-width: 75%;
             line-height: 1.6;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1rem;
+            position: relative;
         }
 
         .ai-message {
@@ -275,11 +279,111 @@
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
             opacity: 0.9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
+        .voice-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .voice-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .voice-btn.recording {
+            background: var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+        
+        .voice-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .voice-visualizer {
+            height: 40px;
+            margin: 0.5rem 0;
+            gap: 1px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .bar {
+            width: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: height 0.1s;
+        }
+        
+        .voice-status {
+            order: -1;
+            text-align: center;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .transcript-display {
+            order: 0;
+            min-height: 60px;
+            max-height: 100px;
+            margin: 0.5rem 0;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow-y: auto;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .mode-toggle {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            justify-content: center;
+        }
+        
+        .mode-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
         .interview-controls {
             padding: 1.5rem 2rem;
-            border-top: 1px solid var(--border);
             background: var(--white);
         }
 
@@ -410,113 +514,176 @@
             border-radius: 3px;
         }
 
-     .voice-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem; /* Reduce gap */
-    margin-top: 0.5rem;
-}
-        
-        .voice-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .voice-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-        
-        .voice-btn.recording {
-            background: var(--accent);
-            animation: pulse 1.5s infinite;
-        }
-        
-        .voice-btn:disabled {
-            background: var(--gray);
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .voice-visualizer {
-    height: 40px; /* Reduce from 80px */
-    margin: 0.5rem 0;
-    gap: 1px; /* Reduce gap between bars */
-}
-        
-        .bar {
-            width: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-            transition: height 0.1s;
-        }
-        
-        .voice-status {
-    order: -1; /* Move to top */
-    text-align: center;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.transcript-display {
-    order: 0; /* Keep transcript next */
-    min-height: 60px; /* Reduce height */
-    max-height: 100px;
-    margin: 0.5rem 0;
-}
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .mode-toggle {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            justify-content: center;
-        }
-        
-        .mode-btn {
-            padding: 0.75rem 1.5rem;
-            border: 2px solid var(--primary);
+        /* Question audio controls */
+        .audio-btn {
             background: transparent;
+            border: none;
             color: var(--primary);
-            border-radius: 8px;
             cursor: pointer;
-            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 0.25rem;
+            border-radius: 50%;
             transition: all 0.3s;
         }
-        
-        .mode-btn.active {
-            background: var(--primary);
-            color: white;
+
+        .audio-btn:hover {
+            background: rgba(108, 99, 255, 0.1);
         }
-        
-        .audio-player {
+
+        .audio-btn.playing {
+            color: var(--accent);
+        }
+
+        /* Professional Avatar */
+        .avatar-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 16px;
+            margin: 1rem 2rem;
+            position: relative;
+            min-height: 200px;
+            display: none; /* Hidden by default */
+        }
+
+        .professional-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+
+        .professional-avatar.speaking {
+            animation: subtle-pulse 1s infinite alternate;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+
+        .avatar-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-head {
+            width: 80px;
+            height: 80px;
+            background: #ffdbac;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .avatar-hair {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 30px;
+            background: #2c1810;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .avatar-eyes {
+            position: absolute;
+            top: 30px;
             width: 100%;
-            margin: 1rem 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .avatar-eye {
+            width: 12px;
+            height: 12px;
+            background: #333;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .avatar-mouth {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 8px;
+            background: #e75480;
+            border-radius: 0 0 10px 10px;
+            transition: all 0.2s;
+        }
+
+        .professional-avatar.speaking .avatar-mouth {
+            animation: professional-talk 0.5s infinite alternate;
+        }
+
+        .avatar-suit {
+            position: absolute;
+            bottom: -5px;
+            width: 100px;
+            height: 60px;
+            background: #1a202c;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .avatar-tie {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 25px;
+            background: var(--accent);
+            border-radius: 0 0 5px 5px;
+        }
+
+        @keyframes subtle-pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.02); }
+        }
+
+        @keyframes professional-talk {
+            0% { height: 5px; border-radius: 0 0 5px 5px; }
+            100% { height: 10px; border-radius: 0 0 15px 15px; }
+        }
+
+        /* Interview info */
+        .interview-info {
+            text-align: center;
+            margin-bottom: 1rem;
+            display: none; /* Hidden by default */
+        }
+
+        .interview-info h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .interview-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <div class="logo">
-            <img src="Screenshot 2025-07-13 141234.png" alt="CareerCrate Logo" class="logo-img">
-        </div>
+       <div class="logo">
+    <img src="Screenshot 2025-07-13 141234.png" alt="CareerCrate Logo" class="logo-img">
+</div>
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="index.html#features">Features</a>
@@ -576,10 +743,37 @@
                     </div>
                 </div>
                 
+                <!-- Professional Avatar Section - Hidden in text mode -->
+                <div class="avatar-section" id="avatarSection">
+                    <div class="professional-avatar" id="interviewerAvatar">
+                        <div class="avatar-image">
+                            <div class="avatar-head">
+                                <div class="avatar-hair"></div>
+                                <div class="avatar-eyes">
+                                    <div class="avatar-eye"></div>
+                                    <div class="avatar-eye"></div>
+                                </div>
+                                <div class="avatar-mouth"></div>
+                            </div>
+                            <div class="avatar-suit">
+                                <div class="avatar-tie"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interview-info" id="interviewInfo">
+                    <h3>AI Interviewer</h3>
+                    <p>Listen to questions and respond professionally</p>
+                </div>
+                
                 <div class="chat-container" id="chatContainer">
                     <div class="message ai-message">
-                        <div class="message-header">Interviewer</div>
-                        <div>Welcome to your mock interview session. I'll be asking questions about your background, experience, and technical expertise. Please provide detailed, professional responses as you would in an actual interview scenario.</div>
+                        <div class="message-header">
+                            <span>Interviewer</span>
+                            <!-- Speaker button will be conditionally shown based on mode -->
+                        </div>
+                        <div>Welcome to your mock interview session. I will be asking questions about your background, experience, and technical expertise. Please provide detailed, professional responses as you would in an actual interview scenario.</div>
                     </div>
                 </div>
                 
@@ -657,8 +851,8 @@
                     </div>
                 </div>
                 
-                <div class="feedback-actions">
-                    <button class="btn" onclick="restartInterview()">Practice Again</button>
+                <div class="feedback-actions" id="feedbackActions">
+                    <!-- Practice Again button will be conditionally shown based on mode -->
                     <button class="btn btn-outline" onclick="showScreen('setup')">New Interview</button>
                 </div>
             </div>
@@ -676,10 +870,12 @@
             maxQuestions: 10,
             currentStage: 'basic',
             stages: ['basic', 'role', 'technical', 'resume', 'behavioral', 'salary'],
-            interviewMode: 'text', // 'voice' or 'text'
+            interviewMode: 'text',
             isRecording: false,
             recognition: null,
-            currentTranscript: ''
+            currentTranscript: '',
+            currentAudio: null,
+            isSpeaking: false
         };
 
         // DOM elements
@@ -693,18 +889,19 @@
         const submitBtn = document.getElementById('submitBtn');
         const typingIndicator = document.getElementById('typingIndicator');
         const feedbackContent = document.getElementById('feedbackContent');
-        const feedbackTyping = document.getElementById('feedbackTyping');
         const stageIndicator = document.getElementById('stageIndicator');
         const progressText = document.getElementById('progressText');
         const progressFill = document.getElementById('progressFill');
         const setupError = document.getElementById('setupError');
-        const setupSuccess = document.getElementById('setupSuccess');
         const interviewError = document.getElementById('interviewError');
-        const interviewSuccess = document.getElementById('interviewSuccess');
         const feedbackJobRole = document.getElementById('feedbackJobRole');
         const feedbackQuestionCount = document.getElementById('feedbackQuestionCount');
         const interviewDate = document.getElementById('interviewDate');
         const interviewMode = document.getElementById('interviewMode');
+        const interviewerAvatar = document.getElementById('interviewerAvatar');
+        const avatarSection = document.getElementById('avatarSection');
+        const interviewInfo = document.getElementById('interviewInfo');
+        const feedbackActions = document.getElementById('feedbackActions');
         
         // Voice elements
         const voiceControls = document.getElementById('voiceControls');
@@ -766,11 +963,71 @@
             if (mode === 'voice') {
                 voiceControls.style.display = 'flex';
                 textControls.style.display = 'none';
+                avatarSection.style.display = 'flex'; // Show avatar
+                interviewInfo.style.display = 'block'; // Show interview info
                 initVisualizer();
             } else {
                 voiceControls.style.display = 'none';
                 textControls.style.display = 'block';
+                avatarSection.style.display = 'none'; // Hide avatar
+                interviewInfo.style.display = 'none'; // Hide interview info
             }
+        }
+
+        // Text-to-Speech function
+        function speakText(text) {
+            // Only speak if we're in voice mode
+            if (interviewState.interviewMode !== 'voice') return;
+            
+            // Stop any currently playing audio
+            if (interviewState.currentAudio) {
+                speechSynthesis.cancel();
+                interviewState.isSpeaking = false;
+                interviewerAvatar.classList.remove('speaking');
+            }
+            
+            // Create speech synthesis
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 0.9;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Set voice if available
+            const voices = speechSynthesis.getVoices();
+            const preferredVoice = voices.find(voice => 
+                voice.name.includes('Google') || 
+                voice.name.includes('Microsoft') || 
+                voice.name.includes('Samantha') ||
+                voice.name.includes('Karen') ||
+                voice.name.includes('Daniel')
+            );
+            
+            if (preferredVoice) {
+                utterance.voice = preferredVoice;
+            }
+            
+            // Handle speech events
+            utterance.onstart = function() {
+                interviewState.isSpeaking = true;
+                interviewerAvatar.classList.add('speaking');
+            };
+            
+            utterance.onend = function() {
+                interviewState.isSpeaking = false;
+                interviewerAvatar.classList.remove('speaking');
+            };
+            
+            utterance.onerror = function(event) {
+                console.error('Speech synthesis error:', event);
+                interviewState.isSpeaking = false;
+                interviewerAvatar.classList.remove('speaking');
+            };
+            
+            // Store current audio for potential stopping
+            interviewState.currentAudio = utterance;
+            
+            // Speak the text
+            speechSynthesis.speak(utterance);
         }
 
         // Speech recognition setup
@@ -951,6 +1208,11 @@
                     interviewState.questionCount = data.questionCount;
                     updateProgress();
                     updateStageIndicator(data.stage);
+                    
+                    // Speak the question automatically if in voice mode
+                    if (interviewState.interviewMode === 'voice') {
+                        speakText(data.question);
+                    }
                 }
 
             } catch (error) {
@@ -980,12 +1242,6 @@
             setTimeout(() => element.style.display = 'none', 5000);
         }
 
-        function showSuccess(element, message) {
-            element.textContent = message;
-            element.style.display = 'block';
-            setTimeout(() => element.style.display = 'none', 3000);
-        }
-
         function showTyping(show) {
             typingIndicator.style.display = show ? 'block' : 'none';
         }
@@ -993,9 +1249,22 @@
         function addMessage(text, sender) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${sender}-message`;
-            const senderName = sender === 'ai' ? 'Interviewer' : 'You';
+            
+            // Only show speaker button for AI messages in voice mode
+            let messageHeader = `<div class="message-header">${sender === 'ai' ? 'Interviewer' : 'You'}</div>`;
+            
+            if (sender === 'ai' && interviewState.interviewMode === 'voice') {
+                const escapedText = text.replace(/'/g, "\\'");
+                messageHeader = `
+                    <div class="message-header">
+                        <span>Interviewer</span>
+                        <button class="audio-btn" onclick="speakText('${escapedText}')">🔊</button>
+                    </div>
+                `;
+            }
+            
             messageDiv.innerHTML = `
-                <div class="message-header">${senderName}</div>
+                ${messageHeader}
                 <div>${text}</div>
             `;
             chatContainer.appendChild(messageDiv);
@@ -1053,9 +1322,10 @@
                 updateStageIndicator(data.stage);
                 showScreen('interview');
 
-                // Initialize voice interface if in voice mode
+                // Speak the first question automatically if in voice mode
                 if (interviewState.interviewMode === 'voice') {
                     initVisualizer();
+                    speakText(data.question);
                 }
 
             } catch (error) {
@@ -1087,7 +1357,11 @@
                 if (response.ok) {
                     const data = await response.json();
                     addMessage(data.question, 'ai');
-                    showSuccess(interviewSuccess, 'Question clarified');
+                    
+                    // Speak the clarified question automatically if in voice mode
+                    if (interviewState.interviewMode === 'voice') {
+                        speakText(data.question);
+                    }
                 }
             } catch (error) {
                 showError(interviewError, 'Error requesting clarification');
@@ -1128,7 +1402,6 @@
 
         function showFeedback(feedback) {
             showScreen('feedback');
-            feedbackTyping.style.display = 'none';
 
             feedbackJobRole.textContent = jobRoleInput.value || 'Not specified';
             feedbackQuestionCount.textContent = interviewState.questionCount;
@@ -1144,6 +1417,15 @@
                     <div style="white-space: pre-line; line-height: 1.6;">${formattedFeedback}</div>
                 </div>
             `;
+            
+            // Only show "Practice Again" button in voice mode
+            if (interviewState.interviewMode === 'voice') {
+                const practiceAgainBtn = document.createElement('button');
+                practiceAgainBtn.className = 'btn';
+                practiceAgainBtn.textContent = 'Practice Again';
+                practiceAgainBtn.onclick = restartInterview;
+                feedbackActions.insertBefore(practiceAgainBtn, feedbackActions.firstChild);
+            }
         }
 
         function restartInterview() {
@@ -1170,6 +1452,11 @@
         showScreen('setup');
         jobRoleInput.focus();
         initVisualizer();
+        
+        // Load voices when they become available
+        speechSynthesis.onvoiceschanged = function() {
+            console.log('Voices loaded:', speechSynthesis.getVoices().length);
+        };
     </script>
 </body>
 </html>
