@@ -6,6 +6,11 @@
 <title>Professional Portfolio Generator | CareerCrate</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Roboto+Mono:wght@300;400;500&family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
 <style>
 :root {
   --primary-color: #3498db;
@@ -412,6 +417,24 @@ nav a.active { color: var(--primary); }
 </div>
 
 <script>
+// Firebase configuration - REPLACE WITH YOUR ACTUAL FIREBASE CONFIG
+const firebaseConfig = {
+ apiKey: "AIzaSyCMTlja4NrE4Cv3_Cv79pRDEykQt8lW1XI",
+  authDomain: "carrercrate.firebaseapp.com",
+  projectId: "carrercrate",
+  storageBucket: "carrercrate.firebasestorage.app",
+  messagingSenderId: "312167069617",
+  appId: "1:312167069617:web:a22835b5c4e45c61396f90"
+};
+
+// Initialize Firebase
+try {
+  firebase.initializeApp(firebaseConfig);
+} catch (error) {
+  console.log("Firebase already initialized or config missing");
+}
+const db = firebase.firestore();
+
 /* -------------------------
    Data & helpers
    ------------------------- */
@@ -1692,10 +1715,8 @@ function escapeHtml(unsafe) {
     .replace(/'/g, "&#039;");
 }
 
-/* initialize preview */
-updatePreview();
 /* -------------------------
-   Portfolio Hosting System
+   Firebase Portfolio Hosting
    ------------------------- */
 
 let currentPortfolioId = null;
@@ -1728,19 +1749,20 @@ async function hostPortfolio() {
             },
             font: document.getElementById("fontSelector").value,
             background: document.getElementById("bgSelector").value,
-            createdAt: new Date().toISOString()
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            views: 0
         };
 
-        // Save to Firebase (replace with your actual Firebase code)
-        const portfolioId = await savePortfolioToFirebase(portfolioData);
-        currentPortfolioId = portfolioId;
+        // Save to Firebase Firestore
+        const docRef = await db.collection('portfolios').add(portfolioData);
+        currentPortfolioId = docRef.id;
         
-        const shareableURL = `${window.location.origin}${window.location.pathname}?view=${portfolioId}`;
-        showShareModal(shareableURL, portfolioId);
+        const shareableURL = `${window.location.origin}${window.location.pathname}?view=${docRef.id}`;
+        showShareModal(shareableURL, docRef.id);
         
     } catch (error) {
         console.error('Error hosting portfolio:', error);
-        alert('Error publishing portfolio. Please try again.');
+        alert('Error publishing portfolio. Please try again. Make sure Firebase is properly configured.');
     } finally {
         const btn = event.target;
         btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Host Portfolio';
@@ -1748,87 +1770,71 @@ async function hostPortfolio() {
     }
 }
 
-// Temporary - replace with your Firebase
-async function savePortfolioToFirebase(portfolioData) {
-    const portfolioId = 'portfolio_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    localStorage.setItem(portfolioId, JSON.stringify(portfolioData));
-    return portfolioId;
-}
-
-function showShareModal(url, portfolioId) {
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-        background: rgba(0,0,0,0.8); display: flex; align-items: center; 
-        justify-content: center; z-index: 10000;
-    `;
-    
-    modal.innerHTML = `
-        <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%;">
-            <h2 style="color: var(--primary-color); margin-bottom: 20px;">
-                <i class="fas fa-check-circle" style="color: #4CAF50;"></i> Portfolio Published!
-            </h2>
-            <p style="margin-bottom: 15px; color: #666;">Your portfolio is now live:</p>
-            <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                <input type="text" id="portfolioUrl" value="${url}" 
-                       style="width: 100%; border: none; background: transparent; color: #333; font-size: 14px;" readonly>
-            </div>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button onclick="copyPortfolioUrl()" class="btn" style="flex: 1;">
-                    <i class="fas fa-copy"></i> Copy Link
-                </button>
-                <button onclick="window.open('${url}', '_blank')" class="btn" style="flex: 1;">
-                    <i class="fas fa-eye"></i> View Live
-                </button>
-                <button onclick="closeShareModal()" class="btn" style="background: #6c757d;">
-                    <i class="fas fa-times"></i> Close
-                </button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-}
-
-function copyPortfolioUrl() {
-    const urlInput = document.getElementById('portfolioUrl');
-    urlInput.select();
-    document.execCommand('copy');
-    const btn = event.target;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-    setTimeout(() => { btn.innerHTML = originalText; }, 2000);
-}
-
-function closeShareModal() {
-    const modals = document.querySelectorAll('div');
-    modals.forEach(modal => {
-        if (modal.style.position === 'fixed' && 
-            modal.style.background === 'rgba(0, 0, 0, 0.8)') {
-            modal.remove();
-        }
-    });
-}
-
 // Load portfolio when URL has ?view= parameter
-function loadPortfolioFromURL() {
+async function loadPortfolioFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     const portfolioId = urlParams.get('view');
     
     if (portfolioId) {
-        // Hide editor, show only portfolio
-        document.querySelector('.sidebar').style.display = 'none';
-        document.querySelector('.toolbar').style.display = 'none';
-        document.querySelector('.preview-container').style.padding = '0';
-        document.querySelector('.portfolio-preview').style.maxWidth = 'none';
-        document.querySelector('.portfolio-preview').style.borderRadius = '0';
-        document.querySelector('.portfolio-preview').style.boxShadow = 'none';
-        
-        // Load portfolio data
-        const savedData = localStorage.getItem(portfolioId);
-        if (savedData) {
-            const portfolioData = JSON.parse(savedData);
-            applyPortfolioData(portfolioData);
+        try {
+            // Show loading state
+            document.getElementById('portfolioPreview').innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+                    <div style="text-align: center;">
+                        <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary-color); margin-bottom: 20px;"></i>
+                        <p>Loading portfolio...</p>
+                    </div>
+                </div>
+            `;
+
+            // Hide editor, show only portfolio
+            document.querySelector('.sidebar').style.display = 'none';
+            document.querySelector('.toolbar').style.display = 'none';
+            document.querySelector('.preview-container').style.padding = '0';
+            document.querySelector('.portfolio-preview').style.maxWidth = 'none';
+            document.querySelector('.portfolio-preview').style.borderRadius = '0';
+            document.querySelector('.portfolio-preview').style.boxShadow = 'none';
+            
+            // Load portfolio data from Firebase
+            const doc = await db.collection('portfolios').doc(portfolioId).get();
+            
+            if (doc.exists) {
+                const portfolioData = doc.data();
+                
+                // Update view count
+                await db.collection('portfolios').doc(portfolioId).update({
+                    views: firebase.firestore.FieldValue.increment(1)
+                });
+                
+                applyPortfolioData(portfolioData);
+            } else {
+                document.getElementById('portfolioPreview').innerHTML = `
+                    <div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-exclamation-triangle fa-3x" style="color: #e74c3c; margin-bottom: 20px;"></i>
+                            <h2>Portfolio Not Found</h2>
+                            <p>The portfolio you're looking for doesn't exist or has been deleted.</p>
+                            <button onclick="window.location.href = window.location.pathname" class="btn" style="margin-top: 20px;">
+                                <i class="fas fa-arrow-left"></i> Back to Editor
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        } catch (error) {
+            console.error('Error loading portfolio:', error);
+            document.getElementById('portfolioPreview').innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+                    <div style="text-align: center;">
+                        <i class="fas fa-exclamation-triangle fa-3x" style="color: #e74c3c; margin-bottom: 20px;"></i>
+                        <h2>Error Loading Portfolio</h2>
+                        <p>Please try again later.</p>
+                        <button onclick="window.location.href = window.location.pathname" class="btn" style="margin-top: 20px;">
+                            <i class="fas fa-arrow-left"></i> Back to Editor
+                        </button>
+                    </div>
+                </div>
+            `;
         }
     }
 }
@@ -1872,21 +1878,70 @@ function applyPortfolioData(data) {
         });
         
         // Update preview with the saved template
-        const name = data.name || "Your Name";
-        const prof = data.profession || "Your Profession";
-        const bio = data.bio || "";
-        
-        // Clear and set template
-        const preview = document.getElementById("portfolioPreview");
-        preview.className = "portfolio-preview " + data.template;
-        
-        // Now update the content
         updatePreview();
     }
 }
 
+function showShareModal(url, portfolioId) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background: rgba(0,0,0,0.8); display: flex; align-items: center; 
+        justify-content: center; z-index: 10000;
+    `;
+    
+    modal.innerHTML = `
+        <div style="background: white; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%;">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">
+                <i class="fas fa-check-circle" style="color: #4CAF50;"></i> Portfolio Published!
+            </h2>
+            <p style="margin-bottom: 15px; color: #666;">Your portfolio is now live and shareable:</p>
+            <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <input type="text" id="portfolioUrl" value="${url}" 
+                       style="width: 100%; border: none; background: transparent; color: #333; font-size: 14px;" readonly>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button onclick="copyPortfolioUrl()" class="btn" style="flex: 1;">
+                    <i class="fas fa-copy"></i> Copy Link
+                </button>
+                <button onclick="window.open('${url}', '_blank')" class="btn" style="flex: 1;">
+                    <i class="fas fa-eye"></i> View Live
+                </button>
+                <button onclick="closeShareModal()" class="btn" style="background: #6c757d;">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+function copyPortfolioUrl() {
+    const urlInput = document.getElementById('portfolioUrl');
+    urlInput.select();
+    document.execCommand('copy');
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => { btn.innerHTML = originalText; }, 2000);
+}
+
+function closeShareModal() {
+    const modals = document.querySelectorAll('div');
+    modals.forEach(modal => {
+        if (modal.style.position === 'fixed' && 
+            modal.style.background === 'rgba(0, 0, 0, 0.8)') {
+            modal.remove();
+        }
+    });
+}
+
 // Auto-load portfolio on page load
 loadPortfolioFromURL();
+
+/* initialize preview */
+updatePreview();
 </script>
 </body>
 </html>
