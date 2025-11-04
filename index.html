@@ -805,7 +805,57 @@
                 transform: none;
             }
         }
+/* Mobile Menu Styles */
+.mobile-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+}
 
+.mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-menu a {
+    padding: 1rem 2rem;
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu a:hover {
+    background: rgba(108, 99, 255, 0.1);
+    color: var(--primary);
+}
+
+.mobile-menu .nav-btn {
+    margin: 1rem 2rem;
+    text-align: center;
+}
+
+/* Show mobile menu toggle on mobile */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block !important;
+    }
+    
+    nav {
+        display: none !important;
+    }
+}
         @media (min-width: 769px) {
             .menu-toggle {
                 display: none;
@@ -977,6 +1027,19 @@
         <button class="menu-toggle" id="menuToggle">
             <i class="fas fa-bars"></i>
         </button>
+
+        <!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="active">Home</a>
+    <a href="#features">Features</a>
+    <a href="resume.html">Resume</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="internships.html">Internships</a>
+    <a href="mock.html">Mock Interview</a>
+    <a href="carrerpath.html">Career Suggestions</a>
+    <a href="#contact">Contact</a>
+    <button class="nav-btn login-trigger" id="mobileLoginBtn">Login</button>
+</div>
     </header>
 
 
@@ -1681,8 +1744,47 @@ resetForm.addEventListener("submit", function (e) {
 
 
     </script>
+<script>// Mobile menu toggle functionality
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', function() {
+        mobileMenu.classList.toggle('open');
+        // Toggle hamburger icon
+        const icon = this.querySelector('i');
+        if (mobileMenu.classList.contains('open')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
     
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.remove('open');
+            menuToggle.querySelector('i').classList.remove('fa-times');
+            menuToggle.querySelector('i').classList.add('fa-bars');
+        });
+    });
+    
+    // Mobile login button
+    const mobileLoginBtn = document.getElementById('mobileLoginBtn');
+    if (mobileLoginBtn) {
+        mobileLoginBtn.addEventListener('click', function() {
+            openModal(true);
+            mobileMenu.classList.remove('open');
+            menuToggle.querySelector('i').classList.remove('fa-times');
+            menuToggle.querySelector('i').classList.add('fa-bars');
+        });
+    }
+}
+</script>    
 </body>
 
 </html>
+
 
