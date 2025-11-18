@@ -65,38 +65,6 @@
             border-radius: 8px;
         }
 
-        /* Mobile Navigation */
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .mobile-menu-toggle span {
-            height: 3px;
-            width: 100%;
-            background-color: var(--dark);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-
-        .mobile-menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .mobile-menu-toggle.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
-        }
-
         nav {
             display: flex;
             gap: 1.5rem;
@@ -138,6 +106,52 @@
 
         .active::after {
             width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            padding: 1rem 0;
+            z-index: 999;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
         }
 
         /* Main Container */
@@ -711,10 +725,6 @@
 
         /* Mobile Responsive Styles */
         @media (max-width: 768px) {
-            body {
-                padding-top: 70px;
-            }
-            
             header {
                 padding: 1rem;
             }
@@ -724,48 +734,16 @@
                 width: 180px;
             }
             
-            .mobile-menu-toggle {
-                display: flex;
-            }
-            
             nav {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 1rem;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-                transform: translateY(-100%);
-                opacity: 0;
-                transition: all 0.3s ease;
-                z-index: 999;
+                display: none;
             }
             
-            nav.active {
-                transform: translateY(0);
-                opacity: 1;
-            }
-            
-            nav a {
-                padding: 0.75rem 0;
-                width: 100%;
-                border-bottom: 1px solid var(--gray-light);
-            }
-            
-            nav a:last-child {
-                border-bottom: none;
-            }
-            
-            .container {
-                margin: 1rem;
-                border-radius: 12px;
+            .menu-toggle {
+                display: block;
             }
             
             .screen-header {
-                padding: 2rem;
+                padding: 1.5rem 1rem;
             }
             
             .screen-header h1 {
@@ -784,20 +762,21 @@
                 padding: 1rem;
                 flex-direction: column;
                 gap: 1rem;
-                text-align: center;
+                align-items: flex-start;
             }
             
             .progress-container {
-                justify-content: center;
+                width: 100%;
+                justify-content: space-between;
             }
             
             .progress-bar {
-                width: 150px;
+                width: 120px;
             }
             
             .chat-container {
                 padding: 1rem;
-                max-height: 350px;
+                max-height: 300px;
             }
             
             .message {
@@ -809,40 +788,26 @@
                 padding: 1rem;
             }
             
-            .input-group {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
             .control-buttons {
                 flex-direction: column;
+            }
+            
+            .mode-toggle {
+                flex-direction: column;
+            }
+            
+            .voice-controls {
                 gap: 0.75rem;
             }
             
-            .btn {
-                width: 100%;
-                max-width: none;
-            }
-            
             .voice-btn {
+                padding: 0.75rem 1rem;
+            }
+            
+            .avatar-section {
+                margin: 1rem;
                 padding: 1rem;
-            }
-            
-            .feedback-content {
-                padding: 1rem;
-            }
-            
-            .feedback-summary {
-                padding: 1.5rem;
-            }
-            
-            .feedback-item {
-                padding: 1.5rem;
-            }
-            
-            .feedback-actions {
-                flex-direction: column;
-                padding: 1rem;
+                min-height: 150px;
             }
             
             .professional-avatar {
@@ -856,61 +821,50 @@
             }
             
             .avatar-head {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .avatar-hair {
-                width: 80px;
-                height: 25px;
-            }
-            
-            .avatar-suit {
-                width: 90px;
-                height: 50px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .screen-header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .screen-header p {
-                font-size: 0.9rem;
-            }
-            
-            .mode-toggle {
-                flex-direction: column;
-            }
-            
-            .mode-btn {
-                width: 100%;
-            }
-            
-            .professional-avatar {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .avatar-image {
-                width: 90px;
-                height: 90px;
-            }
-            
-            .avatar-head {
                 width: 60px;
                 height: 60px;
             }
             
             .avatar-hair {
                 width: 70px;
-                height: 20px;
+                height: 25px;
+            }
+            
+            .avatar-eyes {
+                top: 20px;
+            }
+            
+            .avatar-eye {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .avatar-mouth {
+                bottom: 15px;
+                width: 25px;
             }
             
             .avatar-suit {
                 width: 80px;
-                height: 45px;
+                height: 50px;
+            }
+            
+            .avatar-tie {
+                width: 12px;
+                height: 20px;
+            }
+            
+            .feedback-content {
+                padding: 1rem;
+            }
+            
+            .feedback-item {
+                padding: 1.5rem;
+            }
+            
+            .feedback-actions {
+                flex-direction: column;
+                padding: 1rem;
             }
         }
     </style>
@@ -921,12 +875,7 @@
         <div class="logo">
             <img src="Screenshot 2025-07-13 141234.png" alt="CareerCrate Logo" class="logo-img">
         </div>
-        <button class="mobile-menu-toggle" id="mobileMenuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        <nav class="navbar" id="navbar">
+        <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="index.html#features">Features</a>
             <a href="resume.html">Resume</a>
@@ -936,7 +885,22 @@
             <a href="carrerpath.html">Career Suggestions</a>
             <a href="index.html#contact">Contact</a>
         </nav>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="index.html#features">Features</a>
+        <a href="resume.html">Resume</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="internship.html">Internships</a>
+        <a href="mock.html" class="active">Mock Interview</a>
+        <a href="carrerpath.html">Career Suggestions</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
 
     <div class="container">
         <!-- Setup Screen -->
@@ -1102,41 +1066,6 @@
     </div>
 
     <script>
-        // Mobile menu functionality
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navbar = document.getElementById('navbar');
-
-        mobileMenuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navbar.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!navbar.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
-                mobileMenuToggle.classList.remove('active');
-                navbar.classList.remove('active');
-            }
-        });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function() {
-                mobileMenuToggle.classList.remove('active');
-                navbar.classList.remove('active');
-            });
-        });
-
-        // Handle page resize
-        window.addEventListener('resize', function() {
-            // Close mobile menu on resize to larger screens
-            if (window.innerWidth > 768) {
-                mobileMenuToggle.classList.remove('active');
-                navbar.classList.remove('active');
-            }
-        });
-
-        // The rest of your existing JavaScript remains the same
         const API_BASE_URL = window.location.origin.includes('5500') 
             ? 'http://localhost:3001' 
             : window.location.origin;
@@ -1152,10 +1081,7 @@
             recognition: null,
             currentTranscript: '',
             currentAudio: null,
-            isSpeaking: false,
-            mediaStream: null,
-            audioContext: null,
-            analyser: null
+            isSpeaking: false
         };
 
         // DOM elements
@@ -1192,6 +1118,10 @@
         const transcriptDisplay = document.getElementById('transcriptDisplay');
         const voiceVisualizer = document.getElementById('voiceVisualizer');
 
+        // Mobile menu elements
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
         const stageLabels = {
             'basic': 'Professional Background',
             'role': 'Role-specific Questions', 
@@ -1200,6 +1130,32 @@
             'behavioral': 'Behavioral Analysis',
             'salary': 'Compensation Discussion'
         };
+
+        // Mobile menu toggle
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('open');
+                // Toggle menu icon
+                const icon = menuToggle.querySelector('i');
+                if (mobileMenu.classList.contains('open')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('open');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+        }
 
         // Initialize audio visualizer bars
         function initVisualizer() {
@@ -1377,21 +1333,13 @@
             if (!interviewState.isRecording) {
                 try {
                     // Request microphone permission
-                    const stream = await navigator.mediaDevices.getUserMedia({ 
-                        audio: {
-                            echoCancellation: true,
-                            noiseSuppression: true,
-                            autoGainControl: true
-                        } 
-                    });
-                    
-                    interviewState.mediaStream = stream;
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     
                     // Setup audio context for visualization
-                    interviewState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const source = interviewState.audioContext.createMediaStreamSource(stream);
-                    interviewState.analyser = interviewState.audioContext.createAnalyser();
-                    source.connect(interviewState.analyser);
+                    const audioContext = new AudioContext();
+                    const source = audioContext.createMediaStreamSource(stream);
+                    const analyser = audioContext.createAnalyser();
+                    source.connect(analyser);
                     
                     // Setup speech recognition
                     interviewState.recognition = setupSpeechRecognition();
@@ -1399,13 +1347,13 @@
                         interviewState.recognition.start();
                         
                         // Start visualizer animation
-                        const bufferLength = interviewState.analyser.frequencyBinCount;
+                        const bufferLength = analyser.frequencyBinCount;
                         const dataArray = new Uint8Array(bufferLength);
                         
                         function updateMeter() {
                             if (!interviewState.isRecording) return;
                             
-                            interviewState.analyser.getByteFrequencyData(dataArray);
+                            analyser.getByteFrequencyData(dataArray);
                             let sum = 0;
                             for (let i = 0; i < bufferLength; i++) {
                                 sum += dataArray[i];
@@ -1429,17 +1377,6 @@
             if (interviewState.recognition) {
                 interviewState.recognition.stop();
             }
-            
-            if (interviewState.mediaStream) {
-                interviewState.mediaStream.getTracks().forEach(track => track.stop());
-                interviewState.mediaStream = null;
-            }
-            
-            if (interviewState.audioContext) {
-                interviewState.audioContext.close();
-                interviewState.audioContext = null;
-            }
-            
             interviewState.isRecording = false;
             recordBtn.classList.remove('recording');
             recordBtn.innerHTML = '<span>🎤</span> Start Recording';
@@ -1707,46 +1644,13 @@
             interviewDate.textContent = new Date().toLocaleDateString();
             interviewMode.textContent = interviewState.interviewMode === 'voice' ? 'Voice' : 'Text';
             
-            // Improved feedback formatting
-            let formattedFeedback = '';
-            if (typeof feedback === 'string') {
-                // Try to parse structured feedback
-                const sections = feedback.split(/\n\n|\n\s*\n/);
-                
-                formattedFeedback = sections.map(section => {
-                    // Check if this is a section with a title
-                    if (section.includes(':')) {
-                        const lines = section.split('\n');
-                        const title = lines[0];
-                        const content = lines.slice(1).join('<br>');
-                        
-                        return `
-                            <div class="feedback-item">
-                                <h4 style="margin-bottom: 0.5rem; color: var(--primary);">${title}</h4>
-                                <div style="line-height: 1.6;">${content || 'No feedback provided.'}</div>
-                            </div>
-                        `;
-                    } else {
-                        // Regular paragraph
-                        return `
-                            <div class="feedback-item">
-                                <div style="line-height: 1.6;">${section.replace(/\n/g, '<br>')}</div>
-                            </div>
-                        `;
-                    }
-                }).join('');
-            } else {
-                // Handle object feedback
-                formattedFeedback = `
-                    <div class="feedback-item">
-                        <div style="white-space: pre-line; line-height: 1.6;">${JSON.stringify(feedback, null, 2)}</div>
-                    </div>
-                `;
-            }
+            const formattedFeedback = typeof feedback === 'string' 
+                ? feedback.replace(/\n/g, '<br>')
+                : JSON.stringify(feedback);
             
-            feedbackContent.innerHTML = formattedFeedback || `
+            feedbackContent.innerHTML = `
                 <div class="feedback-item">
-                    <div>No feedback available for this session.</div>
+                    <div style="white-space: pre-line; line-height: 1.6;">${formattedFeedback}</div>
                 </div>
             `;
             
@@ -1790,5 +1694,6 @@
             console.log('Voices loaded:', speechSynthesis.getVoices().length);
         };
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </body>
 </html>
