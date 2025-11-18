@@ -1,5 +1,4 @@
-
-                    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -82,7 +81,7 @@
 
         
         /* Navigation */
-       nav {
+        nav {
             display: flex;
             gap: 1.5rem;
             align-items: center;
@@ -123,6 +122,79 @@
         
         .active::after {
             width: 100%;
+        }
+        
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: var(--dark);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            padding: 1rem 0;
+            z-index: 999;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .mobile-menu a.active {
+            color: var(--primary);
+            background: rgba(108, 99, 255, 0.05);
         }
         
         /* Enhanced Hero Section */
@@ -593,64 +665,6 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-/* Mobile Menu Styles */
-.mobile-menu {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: none;
-    flex-direction: column;
-    padding: 1rem 0;
-    z-index: 999;
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
-}
-
-.mobile-menu.open {
-    display: flex;
-    transform: translateY(0);
-}
-
-.mobile-menu a {
-    padding: 1rem 2rem;
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 600;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.mobile-menu a:hover {
-    background: rgba(108, 99, 255, 0.1);
-    color: var(--primary);
-}
-
-.mobile-menu .nav-btn {
-    margin: 1rem 2rem;
-    width: calc(100% - 4rem);
-    justify-content: center;
-}
-
-/* Update existing media query */
-@media (max-width: 768px) {
-    nav {
-        display: none;
-    }
-
-    .menu-toggle {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: var(--primary);
-        cursor: pointer;
-        z-index: 1001;
-    }
-}
-
         
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -669,18 +683,20 @@
             }
             
             header {
-                padding: 0.8rem 1.5rem;
-                flex-direction: column;
-                text-align: center;
+                padding: 1rem;
             }
             
-            .logo {
-                margin-bottom: 10px;
+            .logo-img {
+                height: 50px;
+                width: 180px;
             }
             
             nav {
-                flex-wrap: wrap;
-                justify-content: center;
+                display: none;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
             }
             
             .hero {
@@ -746,18 +762,23 @@
              <a href="carrerpath.html">Career Suggestions</a>
             <a href="index.html#contact">Contact</a>
         </nav>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </header>
-<!-- Mobile Menu -->
+
+    <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" class="active">Home</a>
-        <a href="#features">Features</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#features">Features</a>
         <a href="resume.html">Resume</a>
-        <a href="carrer.html">Portfolio</a>
-        <a href="internship.html">Internships</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="internship.html" class="active">Internships</a>
         <a href="mock.html">Mock Interview</a>
         <a href="carrerpath.html">Career Suggestions</a>
-        <a href="#contact">Contact</a>
-        <button class="nav-btn login-trigger" id="mobileLoginBtn">Login</button>
+        <a href="index.html#contact">Contact</a>
     </div>
 
     <div class="container">
@@ -902,44 +923,32 @@
     
 
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            if (menuToggle && mobileMenu) {
-                menuToggle.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('open');
-                });
-            }
+        // Mobile menu functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
 
-            // Smooth scrolling for navigation links
-           document.querySelectorAll('nav a, .mobile-menu a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        if (this.getAttribute('href').startsWith('#')) {
-            e.preventDefault();}
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                        
-                        // Close mobile menu if open
-                        if (mobileMenu && mobileMenu.classList.contains('open')) {
-                            mobileMenu.classList.remove('open');
-                        }
-                        
-                        // Update active nav link
-                        document.querySelectorAll('nav a').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    }
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('open');
+            });
+
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('open');
                 });
             });
 
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        }
 
         // Header scroll effect
         window.addEventListener('scroll', function() {
