@@ -40,7 +40,7 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             backdrop-filter: blur(10px);
             color: var(--dark);
-            padding: 1rem 2rem;
+            padding: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -58,11 +58,44 @@
         }
 
         .logo-img {
-            height: 70px;
-            width: 250px;
+            height: 50px;
+            width: 180px;
             display: block;
             background: var(--primary);
             border-radius: 8px;
+            object-fit: contain;
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu-toggle span {
+            height: 3px;
+            width: 100%;
+            background-color: var(--dark);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
         }
 
         nav {
@@ -122,25 +155,25 @@
         .screen-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: var(--white);
-            padding: 2.5rem 3rem;
+            padding: 2rem;
             text-align: center;
         }
 
         .screen-header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             letter-spacing: -0.5px;
         }
 
         .screen-header p {
-            font-size: 1.2rem;
+            font-size: 1rem;
             opacity: 0.95;
             font-weight: 400;
         }
 
         .screen {
-            padding: 3rem;
+            padding: 2rem;
             display: none;
         }
 
@@ -150,7 +183,7 @@
 
         /* Form Styles */
         .form-group {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         label {
@@ -163,7 +196,7 @@
 
         input, textarea {
             width: 100%;
-            padding: 1rem 1.25rem;
+            padding: 1rem;
             border: 2px solid var(--border);
             border-radius: 10px;
             font-size: 1rem;
@@ -179,7 +212,7 @@
 
         textarea {
             resize: vertical;
-            min-height: 150px;
+            min-height: 120px;
             line-height: 1.6;
         }
 
@@ -187,12 +220,16 @@
             background: var(--primary);
             color: var(--white);
             border: none;
-            padding: 1rem 2.5rem;
+            padding: 1rem 2rem;
             border-radius: 10px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
             transition: all 0.3s;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
         }
 
         .btn:hover {
@@ -218,23 +255,25 @@
         }
 
         .interview-header {
-            padding: 1.5rem 2rem;
+            padding: 1rem;
             border-bottom: 1px solid var(--border);
             background: var(--white);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .stage-indicator {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--primary);
+            text-align: center;
         }
 
         .progress-container {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 1rem;
         }
 
@@ -247,15 +286,15 @@
             flex: 1;
             min-height: 300px;
             max-height: 400px;
-            padding: 1.5rem;
+            padding: 1rem;
             overflow-y: auto;
             border-bottom: 1px solid var(--border);
         }
 
         .message {
-            padding: 1.5rem 2rem;
+            padding: 1rem;
             border-radius: 16px;
-            max-width: 75%;
+            max-width: 85%;
             line-height: 1.6;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             margin-bottom: 1rem;
@@ -295,7 +334,7 @@
             background: var(--primary);
             color: white;
             border: none;
-            padding: 1rem 1.5rem;
+            padding: 1rem;
             border-radius: 50px;
             cursor: pointer;
             font-size: 1rem;
@@ -364,6 +403,7 @@
             gap: 1rem;
             margin-bottom: 1rem;
             justify-content: center;
+            flex-wrap: wrap;
         }
         
         .mode-btn {
@@ -375,6 +415,8 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            flex: 1;
+            min-width: 140px;
         }
         
         .mode-btn.active {
@@ -383,14 +425,14 @@
         }
         
         .interview-controls {
-            padding: 1.5rem 2rem;
+            padding: 1rem;
             background: var(--white);
         }
 
         .input-group {
             display: flex;
+            flex-direction: column;
             gap: 1rem;
-            align-items: flex-end;
         }
 
         #userAnswer {
@@ -406,6 +448,7 @@
 
         .control-buttons {
             display: flex;
+            flex-direction: column;
             gap: 1rem;
             margin-top: 1rem;
         }
@@ -433,24 +476,24 @@
             display: none;
             color: var(--gray);
             font-style: italic;
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
             background: var(--light);
-            margin: 1rem 2rem;
+            margin: 1rem;
             border-radius: 10px;
             border-left: 4px solid var(--warning);
         }
 
         /* Feedback Screen */
         .feedback-content {
-            padding: 2rem;
+            padding: 1rem;
         }
 
         .feedback-summary {
             background: var(--light);
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 12px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             border-left: 4px solid var(--primary);
         }
 
@@ -461,25 +504,26 @@
 
         .feedback-item {
             background: var(--white);
-            padding: 2.5rem;
+            padding: 1.5rem;
             border-radius: 12px;
             border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .feedback-actions {
             display: flex;
+            flex-direction: column;
             gap: 1rem;
             justify-content: center;
-            padding: 2rem;
+            padding: 1rem;
         }
 
         /* Alerts */
         .error-message {
             background: #fef2f2;
             color: var(--accent);
-            padding: 1.25rem;
+            padding: 1rem;
             border-radius: 10px;
             margin: 1rem 0;
             border: 1px solid #fecaca;
@@ -490,7 +534,7 @@
         .success-message {
             background: #f0fdf4;
             color: var(--success);
-            padding: 1.25rem;
+            padding: 1rem;
             border-radius: 10px;
             margin: 1rem 0;
             border: 1px solid #bbf7d0;
@@ -500,7 +544,7 @@
 
         /* Progress Bar */
         .progress-bar {
-            width: 200px;
+            width: 150px;
             height: 6px;
             background: var(--gray-light);
             border-radius: 3px;
@@ -539,18 +583,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 1rem;
             background: var(--light);
             border-radius: 16px;
-            margin: 1rem 2rem;
+            margin: 1rem;
             position: relative;
-            min-height: 200px;
+            min-height: 150px;
             display: none; /* Hidden by default */
         }
 
         .professional-avatar {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             display: flex;
@@ -568,8 +612,8 @@
         }
 
         .avatar-image {
-            width: 140px;
-            height: 140px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
             display: flex;
@@ -580,8 +624,8 @@
         }
 
         .avatar-head {
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             background: #ffdbac;
             border-radius: 50%;
             position: relative;
@@ -589,26 +633,26 @@
 
         .avatar-hair {
             position: absolute;
-            top: -10px;
+            top: -8px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90px;
-            height: 30px;
+            width: 70px;
+            height: 25px;
             background: #2c1810;
             border-radius: 50% 50% 0 0;
         }
 
         .avatar-eyes {
             position: absolute;
-            top: 30px;
+            top: 25px;
             width: 100%;
             display: flex;
             justify-content: space-around;
         }
 
         .avatar-eye {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             background: #333;
             border-radius: 50%;
             position: relative;
@@ -616,13 +660,13 @@
 
         .avatar-mouth {
             position: absolute;
-            bottom: 20px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 8px;
+            width: 25px;
+            height: 6px;
             background: #e75480;
-            border-radius: 0 0 10px 10px;
+            border-radius: 0 0 8px 8px;
             transition: all 0.2s;
         }
 
@@ -633,21 +677,21 @@
         .avatar-suit {
             position: absolute;
             bottom: -5px;
-            width: 100px;
-            height: 60px;
+            width: 80px;
+            height: 50px;
             background: #1a202c;
-            border-radius: 10px 10px 0 0;
+            border-radius: 8px 8px 0 0;
         }
 
         .avatar-tie {
             position: absolute;
-            bottom: -15px;
+            bottom: -12px;
             left: 50%;
             transform: translateX(-50%);
-            width: 15px;
-            height: 25px;
+            width: 12px;
+            height: 20px;
             background: var(--accent);
-            border-radius: 0 0 5px 5px;
+            border-radius: 0 0 4px 4px;
         }
 
         @keyframes subtle-pulse {
@@ -657,7 +701,7 @@
 
         @keyframes professional-talk {
             0% { height: 5px; border-radius: 0 0 5px 5px; }
-            100% { height: 10px; border-radius: 0 0 15px 15px; }
+            100% { height: 8px; border-radius: 0 0 12px 12px; }
         }
 
         /* Interview info */
@@ -676,15 +720,191 @@
             color: var(--gray);
             font-size: 0.9rem;
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            header {
+                padding: 0.75rem 1rem;
+            }
+            
+            .logo-img {
+                height: 40px;
+                width: 150px;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            nav a {
+                padding: 0.75rem 0;
+                width: 100%;
+                border-bottom: 1px solid var(--gray-light);
+            }
+            
+            nav a:last-child {
+                border-bottom: none;
+            }
+            
+            .container {
+                margin: 1rem;
+                border-radius: 12px;
+            }
+            
+            .screen-header {
+                padding: 1.5rem;
+            }
+            
+            .screen-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .screen-header p {
+                font-size: 0.9rem;
+            }
+            
+            .screen {
+                padding: 1.5rem;
+            }
+            
+            .message {
+                max-width: 90%;
+                padding: 0.75rem;
+            }
+            
+            .chat-container {
+                padding: 0.75rem;
+                max-height: 350px;
+            }
+            
+            .interview-controls {
+                padding: 0.75rem;
+            }
+            
+            .control-buttons {
+                gap: 0.75rem;
+            }
+            
+            .feedback-content {
+                padding: 0.75rem;
+            }
+            
+            .feedback-summary {
+                padding: 1rem;
+            }
+            
+            .feedback-item {
+                padding: 1rem;
+            }
+            
+            .professional-avatar {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .avatar-image {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .avatar-head {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .avatar-hair {
+                width: 60px;
+                height: 20px;
+            }
+            
+            .avatar-suit {
+                width: 70px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .screen-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .screen-header p {
+                font-size: 0.85rem;
+            }
+            
+            .mode-btn {
+                min-width: 120px;
+                padding: 0.6rem 1rem;
+            }
+            
+            .progress-bar {
+                width: 120px;
+            }
+            
+            .professional-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .avatar-image {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .avatar-head {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .avatar-hair {
+                width: 50px;
+                height: 15px;
+            }
+            
+            .avatar-suit {
+                width: 60px;
+                height: 35px;
+            }
+        }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-       <div class="logo">
-    <img src="Screenshot 2025-07-13 141234.png" alt="CareerCrate Logo" class="logo-img">
-</div>
-        <nav class="navbar">
+        <div class="logo">
+            <img src="Screenshot 2025-07-13 141234.png" alt="CareerCrate Logo" class="logo-img">
+        </div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <nav class="navbar" id="navbar">
             <a href="index.html">Home</a>
             <a href="index.html#features">Features</a>
             <a href="resume.html">Resume</a>
@@ -703,7 +923,7 @@
                 <h1>AI Mock Interview</h1>
                 <p>Practice with realistic interview questions and get professional feedback</p>
             </div>
-            <div style="padding: 3rem;">
+            <div style="padding: 2rem;">
                 <div class="mode-toggle">
                     <button class="mode-btn active" onclick="setInterviewMode('text')">⌨️ Text Interview</button>
                     <button class="mode-btn" onclick="setInterviewMode('voice')">🎤 Voice Interview</button>
@@ -875,7 +1095,10 @@
             recognition: null,
             currentTranscript: '',
             currentAudio: null,
-            isSpeaking: false
+            isSpeaking: false,
+            mediaStream: null,
+            audioContext: null,
+            analyser: null
         };
 
         // DOM elements
@@ -902,6 +1125,8 @@
         const avatarSection = document.getElementById('avatarSection');
         const interviewInfo = document.getElementById('interviewInfo');
         const feedbackActions = document.getElementById('feedbackActions');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navbar = document.getElementById('navbar');
         
         // Voice elements
         const voiceControls = document.getElementById('voiceControls');
@@ -921,10 +1146,24 @@
             'salary': 'Compensation Discussion'
         };
 
+        // Mobile menu toggle
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navbar.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!navbar.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                mobileMenuToggle.classList.remove('active');
+                navbar.classList.remove('active');
+            }
+        });
+
         // Initialize audio visualizer bars
         function initVisualizer() {
             voiceVisualizer.innerHTML = '';
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 30; i++) {
                 const bar = document.createElement('div');
                 bar.className = 'bar';
                 bar.style.height = '2px';
@@ -1097,13 +1336,21 @@
             if (!interviewState.isRecording) {
                 try {
                     // Request microphone permission
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    const stream = await navigator.mediaDevices.getUserMedia({ 
+                        audio: {
+                            echoCancellation: true,
+                            noiseSuppression: true,
+                            autoGainControl: true
+                        } 
+                    });
+                    
+                    interviewState.mediaStream = stream;
                     
                     // Setup audio context for visualization
-                    const audioContext = new AudioContext();
-                    const source = audioContext.createMediaStreamSource(stream);
-                    const analyser = audioContext.createAnalyser();
-                    source.connect(analyser);
+                    interviewState.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = interviewState.audioContext.createMediaStreamSource(stream);
+                    interviewState.analyser = interviewState.audioContext.createAnalyser();
+                    source.connect(interviewState.analyser);
                     
                     // Setup speech recognition
                     interviewState.recognition = setupSpeechRecognition();
@@ -1111,13 +1358,13 @@
                         interviewState.recognition.start();
                         
                         // Start visualizer animation
-                        const bufferLength = analyser.frequencyBinCount;
+                        const bufferLength = interviewState.analyser.frequencyBinCount;
                         const dataArray = new Uint8Array(bufferLength);
                         
                         function updateMeter() {
                             if (!interviewState.isRecording) return;
                             
-                            analyser.getByteFrequencyData(dataArray);
+                            interviewState.analyser.getByteFrequencyData(dataArray);
                             let sum = 0;
                             for (let i = 0; i < bufferLength; i++) {
                                 sum += dataArray[i];
@@ -1141,6 +1388,17 @@
             if (interviewState.recognition) {
                 interviewState.recognition.stop();
             }
+            
+            if (interviewState.mediaStream) {
+                interviewState.mediaStream.getTracks().forEach(track => track.stop());
+                interviewState.mediaStream = null;
+            }
+            
+            if (interviewState.audioContext) {
+                interviewState.audioContext.close();
+                interviewState.audioContext = null;
+            }
+            
             interviewState.isRecording = false;
             recordBtn.classList.remove('recording');
             recordBtn.innerHTML = '<span>🎤</span> Start Recording';
@@ -1408,13 +1666,46 @@
             interviewDate.textContent = new Date().toLocaleDateString();
             interviewMode.textContent = interviewState.interviewMode === 'voice' ? 'Voice' : 'Text';
             
-            const formattedFeedback = typeof feedback === 'string' 
-                ? feedback.replace(/\n/g, '<br>')
-                : JSON.stringify(feedback);
+            // Improved feedback formatting
+            let formattedFeedback = '';
+            if (typeof feedback === 'string') {
+                // Try to parse structured feedback
+                const sections = feedback.split(/\n\n|\n\s*\n/);
+                
+                formattedFeedback = sections.map(section => {
+                    // Check if this is a section with a title
+                    if (section.includes(':')) {
+                        const lines = section.split('\n');
+                        const title = lines[0];
+                        const content = lines.slice(1).join('<br>');
+                        
+                        return `
+                            <div class="feedback-item">
+                                <h4 style="margin-bottom: 0.5rem; color: var(--primary);">${title}</h4>
+                                <div style="line-height: 1.6;">${content || 'No feedback provided.'}</div>
+                            </div>
+                        `;
+                    } else {
+                        // Regular paragraph
+                        return `
+                            <div class="feedback-item">
+                                <div style="line-height: 1.6;">${section.replace(/\n/g, '<br>')}</div>
+                            </div>
+                        `;
+                    }
+                }).join('');
+            } else {
+                // Handle object feedback
+                formattedFeedback = `
+                    <div class="feedback-item">
+                        <div style="white-space: pre-line; line-height: 1.6;">${JSON.stringify(feedback, null, 2)}</div>
+                    </div>
+                `;
+            }
             
-            feedbackContent.innerHTML = `
+            feedbackContent.innerHTML = formattedFeedback || `
                 <div class="feedback-item">
-                    <div style="white-space: pre-line; line-height: 1.6;">${formattedFeedback}</div>
+                    <div>No feedback available for this session.</div>
                 </div>
             `;
             
@@ -1457,6 +1748,15 @@
         speechSynthesis.onvoiceschanged = function() {
             console.log('Voices loaded:', speechSynthesis.getVoices().length);
         };
+
+        // Handle page resize
+        window.addEventListener('resize', function() {
+            // Close mobile menu on resize to larger screens
+            if (window.innerWidth > 768) {
+                mobileMenuToggle.classList.remove('active');
+                navbar.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
