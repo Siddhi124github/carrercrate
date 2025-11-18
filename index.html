@@ -11,7 +11,7 @@
     <link rel="icon" href="YOUR_LOGO_ICON_URL_HERE.png" type="image/png">
 
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js"></script>
 
     <style>
         :root {
@@ -103,20 +103,20 @@
 
         /* Header */
        header {
-    background: white; /* Strong contrast */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08); /* Subtle border */
-    backdrop-filter: blur(10px);
-    color: var(--dark);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Stronger shadow */
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
+            background: white; /* Strong contrast */
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08); /* Subtle border */
+            backdrop-filter: blur(10px);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Stronger shadow */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
 
         .logo {
             display: flex;
@@ -130,7 +130,6 @@
             width: 250px;
             display: block;
         }
-
 
         /* Navigation */
         nav {
@@ -194,7 +193,6 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(108, 99, 255, 0.5);
         }
-
 
         /* Main content */
         main {
@@ -366,7 +364,6 @@
             line-height: 1.6;
         }
 
-
         /* Animated stats */
         .stats {
             display: flex;
@@ -398,7 +395,6 @@
             color: #64748b;
             font-weight: 600;
         }
-
 
         .author-avatar {
             width: 50px;
@@ -708,65 +704,119 @@
             position: absolute;
             animation: float 6s infinite ease-in-out;
         }
-.floating-1 {
-    top: 20%;
-    left: 5%;
-    animation-delay: 0s;
-}
 
-.floating-2 {
-    top: 60%;
-    right: 10%;
-    animation-delay: 2s;
-}
+        .floating-1 {
+            top: 20%;
+            left: 5%;
+            animation-delay: 0s;
+        }
 
-.floating-3 {
-    bottom: 10%;
-    left: 15%;
-    animation-delay: 4s;
-}
+        .floating-2 {
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
 
-.floating-4 {
-    top: 80%;
-    right: 20%;
-    animation-delay: 1s;
-}
+        .floating-3 {
+            bottom: 10%;
+            left: 15%;
+            animation-delay: 4s;
+        }
 
-.floating-5 {
-    top: 10%;
-    right: 15%;
-    animation-delay: 4s;
-}
+        .floating-4 {
+            top: 80%;
+            right: 20%;
+            animation-delay: 1s;
+        }
 
-.floating-6 {
-    top: 40%;
-    left: 25%;
-    animation-delay: 3s;
-}
+        .floating-5 {
+            top: 10%;
+            right: 15%;
+            animation-delay: 4s;
+        }
 
-.floating-7 {
-    bottom: 30%;
-    right: 5%;
-    animation-delay: 5s;
-}
+        .floating-6 {
+            top: 40%;
+            left: 25%;
+            animation-delay: 3s;
+        }
 
-.floating-8 {
-    top: 15%;
-    left: 35%;
-    animation-delay: 2s;
-}
+        .floating-7 {
+            bottom: 30%;
+            right: 5%;
+            animation-delay: 5s;
+        }
 
-.floating-9 {
-    bottom: 20%;
-    right: 30%;
-    animation-delay: 1s;
-}
+        .floating-8 {
+            top: 15%;
+            left: 35%;
+            animation-delay: 2s;
+        }
 
-.floating-10 {
-    top: 70%;
-    left: 10%;
-    animation-delay: 3s;
-}
+        .floating-9 {
+            bottom: 20%;
+            right: 30%;
+            animation-delay: 1s;
+        }
+
+        .floating-10 {
+            top: 70%;
+            left: 10%;
+            animation-delay: 3s;
+        }
+
+        /* Mobile Menu Styles */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 0;
+        }
+
+        .mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-menu a {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .mobile-menu .nav-btn {
+            margin: 1rem 2rem;
+            text-align: center;
+            width: calc(100% - 4rem);
+        }
+
         /* Responsive design */
         @media (max-width: 992px) {
             .hero h2 {
@@ -805,91 +855,14 @@
                 transform: none;
             }
         }
-/* Mobile Menu Styles */
-.mobile-menu {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-100%);
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 999;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem 0;
-}
-
-.mobile-menu.open {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.mobile-menu a {
-    padding: 1rem 2rem;
-    text-decoration: none;
-    color: var(--dark);
-    font-weight: 600;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.mobile-menu a:hover {
-    background: rgba(108, 99, 255, 0.1);
-    color: var(--primary);
-}
-
-.mobile-menu .nav-btn {
-    margin: 1rem 2rem;
-    text-align: center;
-}
-
-/* Show mobile menu toggle on mobile */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block !important;
-    }
-    
-    nav {
-        display: none !important;
-    }
-}
-        @media (min-width: 769px) {
-            .menu-toggle {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: none;
-            }
-
-            .modal-content {
-                max-width: 800px;
-            }
-
-            .modal-left {
-                flex: 1;
-            }
-
-            .modal-right {
-                flex: 1;
-            }
-        }
 
         @media (max-width: 768px) {
             nav {
-                display: none;
+                display: none !important;
             }
 
             .menu-toggle {
                 display: block;
-                background: none;
-                border: none;
-                font-size: 1.5rem;
-                color: var(--primary);
-                cursor: pointer;
             }
 
             .hero h2 {
@@ -933,6 +906,12 @@
 
             .social-links {
                 justify-content: center;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu {
+                display: none;
             }
         }
 
@@ -996,8 +975,6 @@
                 opacity: 0;
             }
         }
-
-       
     </style>
 </head>
 
@@ -1009,19 +986,17 @@
 
     <header>
         <div class="logo">
-    <img src="Screenshot 2025-07-13 141234.png" alt="CareerCrate Logo" class="logo-img">
-</div>
-<nav class="navbar">
-  <a href="#home" class="active">Home</a>
-  <a href="#features">Features</a>
- <a href="resume.html" >Resume</a>
+            <img src="Screenshot 2025-07-13 141234.png" alt="CareerCrate Logo" class="logo-img">
+        </div>
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="resume.html">Resume</a>
             <a href="portfolio.html">Portfolio</a>
             <a href="internships.html">Internships</a>
             <a href="mock.html">Mock Interview</a>
-             <a href="carrerpath.html">Career Suggestions</a>
-  <a href="#contact">Contact</a>
-
-
+            <a href="carrerpath.html">Career Suggestions</a>
+            <a href="#contact">Contact</a>
             <button class="nav-btn login-trigger" id="loginBtn">Login</button>
         </nav>
         <button class="menu-toggle" id="menuToggle">
@@ -1029,67 +1004,65 @@
         </button>
 
         <!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-    <a href="#home" class="active">Home</a>
-    <a href="#features">Features</a>
-    <a href="resume.html">Resume</a>
-    <a href="portfolio.html">Portfolio</a>
-    <a href="internships.html">Internships</a>
-    <a href="mock.html">Mock Interview</a>
-    <a href="carrerpath.html">Career Suggestions</a>
-    <a href="#contact">Contact</a>
-    <button class="nav-btn login-trigger" id="mobileLoginBtn">Login</button>
-</div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="resume.html">Resume</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="internships.html">Internships</a>
+            <a href="mock.html">Mock Interview</a>
+            <a href="carrerpath.html">Career Suggestions</a>
+            <a href="#contact">Contact</a>
+            <button class="nav-btn login-trigger" id="mobileLoginBtn">Login</button>
+        </div>
     </header>
 
-
-<div class="modal" id="authModal">
-    <div class="modal-content" id="modalContent">
-        <button class="close-modal" id="closeModal">&times;</button>
-        <div class="modal-left" id="modalLeft">
-            <h2 id="modalLeftTitle">Welcome Back!</h2>
-            <p id="modalLeftText">Enter your personal details to use all of site features</p>
-            <button class="btn btn-secondary btn-form" id="toggleFormBtn">Sign In</button>
-        </div>
-        <div class="modal-right">
-            <h3 id="modalRightTitle">Create Account</h3>
-            <div class="social-buttons">
-                <div class="social-button" onclick="googleLogin()">
-                    <i class="fab fa-google"></i> 
-                </div>
+    <div class="modal" id="authModal">
+        <div class="modal-content" id="modalContent">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-left" id="modalLeft">
+                <h2 id="modalLeftTitle">Welcome Back!</h2>
+                <p id="modalLeftText">Enter your personal details to use all of site features</p>
+                <button class="btn btn-secondary btn-form" id="toggleFormBtn">Sign In</button>
             </div>
-            <p class="or-text">or use your email for registration</p>
+            <div class="modal-right">
+                <h3 id="modalRightTitle">Create Account</h3>
+                <div class="social-buttons">
+                    <div class="social-button" onclick="googleLogin()">
+                        <i class="fab fa-google"></i> 
+                    </div>
+                </div>
+                <p class="or-text">or use your email for registration</p>
 
-            <!-- Signup Form -->
-            <form class="auth-form" id="signupForm">
-                <input type="text" placeholder="Name" required />
-                <input type="email" placeholder="Email" required />
-                <input type="password" placeholder="Password" required />
-                <button type="submit" class="btn-form">Sign Up</button>
-            </form>
+                <!-- Signup Form -->
+                <form class="auth-form" id="signupForm">
+                    <input type="text" placeholder="Name" required />
+                    <input type="email" placeholder="Email" required />
+                    <input type="password" placeholder="Password" required />
+                    <button type="submit" class="btn-form">Sign Up</button>
+                </form>
 
-            <!-- Login Form -->
-            <form class="auth-form" id="loginForm" style="display: none;">
-                <input type="email" placeholder="Email" required />
-                <input type="password" placeholder="Password" required />
-                <button type="submit" class="btn-form">Sign In</button>
-                <p class="switch-form-text">
-                    <a href="#" class="switch-link" id="forgotPasswordLink">Forgot your password?</a>
-                </p>
-            </form>
+                <!-- Login Form -->
+                <form class="auth-form" id="loginForm" style="display: none;">
+                    <input type="email" placeholder="Email" required />
+                    <input type="password" placeholder="Password" required />
+                    <button type="submit" class="btn-form">Sign In</button>
+                    <p class="switch-form-text">
+                        <a href="#" class="switch-link" id="forgotPasswordLink">Forgot your password?</a>
+                    </p>
+                </form>
 
-            <!-- Password Reset Form -->
-            <form class="auth-form" id="resetForm" style="display: none;">
-                <input type="email" placeholder="Enter your email" required />
-                <button type="submit" class="btn-form">Send Reset Link</button>
-                <p class="switch-form-text">
-                    <a href="#" class="back-to-login">Back to Login</a>
-                </p>
-            </form>
+                <!-- Password Reset Form -->
+                <form class="auth-form" id="resetForm" style="display: none;">
+                    <input type="email" placeholder="Enter your email" required />
+                    <button type="submit" class="btn-form">Send Reset Link</button>
+                    <p class="switch-form-text">
+                        <a href="#" class="back-to-login">Back to Login</a>
+                    </p>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
 
     <main id="mainContent">
         <section class="hero" id="home">
@@ -1097,41 +1070,38 @@
                 <h2 class="fade-in">Supercharge Your Career Journey</h2>
                 <p class="fade-in delay-1">The ultimate platform for job seekers with smart resume building, portfolio
                     creation, interview prep, and career guidance all in one seamless platform.</p>
-                
             </div>
 
-           
-           <div class="floating floating-1">
-    <i class="fas fa-circle" style="color: #4B6CB7; font-size: 2.2rem;"></i> <!-- Blue -->
-</div>
-<div class="floating floating-2">
-    <i class="fas fa-circle" style="color: #6C63FF; font-size: 1.8rem;"></i> <!-- Purple -->
-</div>
-<div class="floating floating-3">
-    <i class="fas fa-circle" style="color: #FF6F91; font-size: 2.5rem;"></i> <!-- Accent Pink -->
-</div>
-<div class="floating floating-4">
-    <i class="fas fa-circle" style="color: #4B6CB7; font-size: 1.5rem;"></i> <!-- Blue (repeat) -->
-</div>
-<div class="floating floating-5">
-    <i class="fas fa-circle" style="color: #20B2AA; font-size: 2rem;"></i> <!-- Teal Accent -->
-</div>
-<div class="floating floating-6">
-    <i class="fas fa-circle" style="color: #6C63FF; font-size: 1.2rem;"></i> <!-- Purple -->
-</div>
-<div class="floating floating-7">
-    <i class="fas fa-circle" style="color: #4B6CB7; font-size: 1.7rem;"></i> <!-- Blue -->
-</div>
-<div class="floating floating-8">
-    <i class="fas fa-circle" style="color: #6C63FF; font-size: 2.1rem;"></i> <!-- Purple -->
-</div>
-<div class="floating floating-9">
-    <i class="fas fa-circle" style="color: #FF6F91; font-size: 1.9rem;"></i> <!-- Pink (repeat) -->
-</div>
-<div class="floating floating-10">
-    <i class="fas fa-circle" style="color: #20B2AA; font-size: 1.4rem;"></i> <!-- Teal (repeat) -->
-</div>
-
+            <div class="floating floating-1">
+                <i class="fas fa-circle" style="color: #4B6CB7; font-size: 2.2rem;"></i> <!-- Blue -->
+            </div>
+            <div class="floating floating-2">
+                <i class="fas fa-circle" style="color: #6C63FF; font-size: 1.8rem;"></i> <!-- Purple -->
+            </div>
+            <div class="floating floating-3">
+                <i class="fas fa-circle" style="color: #FF6F91; font-size: 2.5rem;"></i> <!-- Accent Pink -->
+            </div>
+            <div class="floating floating-4">
+                <i class="fas fa-circle" style="color: #4B6CB7; font-size: 1.5rem;"></i> <!-- Blue (repeat) -->
+            </div>
+            <div class="floating floating-5">
+                <i class="fas fa-circle" style="color: #20B2AA; font-size: 2rem;"></i> <!-- Teal Accent -->
+            </div>
+            <div class="floating floating-6">
+                <i class="fas fa-circle" style="color: #6C63FF; font-size: 1.2rem;"></i> <!-- Purple -->
+            </div>
+            <div class="floating floating-7">
+                <i class="fas fa-circle" style="color: #4B6CB7; font-size: 1.7rem;"></i> <!-- Blue -->
+            </div>
+            <div class="floating floating-8">
+                <i class="fas fa-circle" style="color: #6C63FF; font-size: 2.1rem;"></i> <!-- Purple -->
+            </div>
+            <div class="floating floating-9">
+                <i class="fas fa-circle" style="color: #FF6F91; font-size: 1.9rem;"></i> <!-- Pink (repeat) -->
+            </div>
+            <div class="floating floating-10">
+                <i class="fas fa-circle" style="color: #20B2AA; font-size: 1.4rem;"></i> <!-- Teal (repeat) -->
+            </div>
         </section>
 
         <section id="features">
@@ -1182,8 +1152,6 @@
                     <h3>Career Path Suggestions</h3>
                     <p>Get personalized career recommendations based on your skills, interests, and market trends.</p>
                 </div>
-
-                
             </div>
         </section>
 
@@ -1206,42 +1174,36 @@
             </div>
         </section>
 
-       
-      <section id="contact" style="text-align: center; margin-top: 4rem; padding: 2rem;">
-  <h2 class="section-title fade-in"
-      style="font-size: 3rem; margin-bottom: 2rem; color: var(--primary);">Get in Touch</h2>
-  <p class="fade-in delay-1" style="max-width: 600px; margin: 0 auto 2rem; color: var(--dark);">
-    Have questions or need support? Fill the form below!
-  </p>
+        <section id="contact" style="text-align: center; margin-top: 4rem; padding: 2rem;">
+            <h2 class="section-title fade-in"
+                style="font-size: 3rem; margin-bottom: 2rem; color: var(--primary);">Get in Touch</h2>
+            <p class="fade-in delay-1" style="max-width: 600px; margin: 0 auto 2rem; color: var(--dark);">
+                Have questions or need support? Fill the form below!
+            </p>
 
-  <form action="https://formsubmit.co/naiksiddhics232410@gmail.com" method="POST"
-        class="fade-in delay-2"
-        
-        class="fade-in delay-2" style="max-width: 900px; margin: 0 auto;  background: linear-gradient(135deg, #eef2f8, #a3c3d9);  padding: 3rem; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-    
-    <!-- FormSubmit options -->
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_subject" value="New Contact Request from CareerCrate">
-    
-   
+            <form action="https://formsubmit.co/naiksiddhics232410@gmail.com" method="POST"
+                class="fade-in delay-2"
+                style="max-width: 900px; margin: 0 auto;  background: linear-gradient(135deg, #eef2f8, #a3c3d9);  padding: 3rem; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                
+                <!-- FormSubmit options -->
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_subject" value="New Contact Request from CareerCrate">
+                
+                <!-- User Inputs -->
+                <input type="text" name="name" placeholder="Your Name" required
+                    style="width: 100%; padding: 1rem; margin-bottom: 1rem; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem;">
+                <input type="email" name="email" placeholder="Your Email" required
+                    style="width: 100%; padding: 0.9rem; margin-bottom: 1rem; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem;">
+                <textarea name="message" placeholder="Your Message" required
+                    style="width: 100%; padding: 0.9rem; margin-bottom: 1.5rem; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem;"></textarea>
 
-    <!-- User Inputs -->
-    <input type="text" name="name" placeholder="Your Name" required
-           style="width: 100%; padding: 1rem; margin-bottom: 1rem; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem;">
-    <input type="email" name="email" placeholder="Your Email" required
-           style="width: 100%; padding: 0.9rem; margin-bottom: 1rem; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem;">
-    <textarea name="message" placeholder="Your Message" required
-              style="width: 100%; padding: 0.9rem; margin-bottom: 1.5rem; border-radius: 10px; border: 1px solid #ccc; font-size: 1rem;"></textarea>
-
-    <button type="submit" class="btn btn-primary glow"
-            style="background-color: #3b82f6; color: white; border: none; padding: 0.9rem 2rem; font-size: 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s ease;">
-      <i class="fas fa-rocket" style="margin-right: 8px;"></i>Send Message
-    </button>
-  </form>
-</section>
-
-
+                <button type="submit" class="btn btn-primary glow"
+                    style="background-color: #3b82f6; color: white; border: none; padding: 0.9rem 2rem; font-size: 1rem; border-radius: 50px; cursor: pointer; transition: 0.3s ease;">
+                    <i class="fas fa-rocket" style="margin-right: 8px;"></i>Send Message
+                </button>
+            </form>
+        </section>
     </main>
 
     <footer>
@@ -1250,7 +1212,6 @@
                 <h3>CareerCrate</h3>
                 <p style="font-size: 0.9rem; line-height: 1.6; color:#8aafe6;">Your AI-powered partner for career
                     success. From resume building to interview prep, we've got you covered.</p>
-               
             </div>
             <div class="footer-column fade-in delay-2">
                 <h3>Quick Links</h3>
@@ -1258,15 +1219,11 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    
                 </ul>
             </div>
-           
             <div class="footer-column fade-in delay-4">
                 <h3>Contact Us</h3>
-               
                 <p style="font-size: 0.9rem; color: #cbd5e1;">Email: info@careercrate.com</p><br>
-                
             </div>
         </div>
         <div class="footer-bottom">
@@ -1283,32 +1240,55 @@
             if (menuToggle && mobileMenu) {
                 menuToggle.addEventListener('click', function() {
                     mobileMenu.classList.toggle('open');
+                    // Toggle hamburger icon
+                    const icon = this.querySelector('i');
+                    if (mobileMenu.classList.contains('open')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
                 });
             }
 
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (mobileMenu && mobileMenu.classList.contains('open') && 
+                    !menuToggle.contains(event.target) && 
+                    !mobileMenu.contains(event.target)) {
+                    mobileMenu.classList.remove('open');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                }
+            });
+
             // Smooth scrolling for navigation links
-           document.querySelectorAll('nav a, .mobile-menu a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        if (this.getAttribute('href').startsWith('#')) {
-            e.preventDefault();}
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
+            document.querySelectorAll('nav a, .mobile-menu a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
                         
-                        // Close mobile menu if open
-                        if (mobileMenu && mobileMenu.classList.contains('open')) {
-                            mobileMenu.classList.remove('open');
+                        if (targetElement) {
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                            
+                            // Close mobile menu if open
+                            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                                mobileMenu.classList.remove('open');
+                                menuToggle.querySelector('i').classList.remove('fa-times');
+                                menuToggle.querySelector('i').classList.add('fa-bars');
+                            }
+                            
+                            // Update active nav link
+                            document.querySelectorAll('nav a, .mobile-menu a').forEach(link => {
+                                link.classList.remove('active');
+                            });
+                            this.classList.add('active');
                         }
-                        
-                        // Update active nav link
-                        document.querySelectorAll('nav a').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        this.classList.add('active');
                     }
                 });
             });
@@ -1318,13 +1298,15 @@
             const modalContent = document.getElementById('modalContent');
             const closeModalBtn = document.getElementById('closeModal');
             const loginTriggers = document.querySelectorAll('.login-trigger');
-            const signupTriggers = document.querySelectorAll('.signup-trigger');
             const toggleFormBtn = document.getElementById('toggleFormBtn');
             const loginForm = document.getElementById('loginForm');
             const signupForm = document.getElementById('signupForm');
+            const resetForm = document.getElementById('resetForm');
             const modalLeftTitle = document.getElementById('modalLeftTitle');
             const modalLeftText = document.getElementById('modalLeftText');
             const modalRightTitle = document.getElementById('modalRightTitle');
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            const backToLogin = document.querySelector('.back-to-login');
 
             // Open modal function
             function openModal(isLogin = true) {
@@ -1336,6 +1318,7 @@
                     modalContent.classList.remove('signup-mode');
                     loginForm.style.display = 'flex';
                     signupForm.style.display = 'none';
+                    resetForm.style.display = 'none';
                     modalLeftTitle.textContent = 'Hello, Friend!';
                     modalLeftText.textContent = 'Enter your personal details and start journey with us';
                     toggleFormBtn.textContent = 'Sign Up';
@@ -1345,6 +1328,7 @@
                     modalContent.classList.add('signup-mode');
                     loginForm.style.display = 'none';
                     signupForm.style.display = 'flex';
+                    resetForm.style.display = 'none';
                     modalLeftTitle.textContent = 'Welcome Back!';
                     modalLeftText.textContent = 'Enter your personal details to use all of site features';
                     toggleFormBtn.textContent = 'Sign In';
@@ -1366,6 +1350,7 @@
                     // Switching to signup
                     loginForm.style.display = 'none';
                     signupForm.style.display = 'flex';
+                    resetForm.style.display = 'none';
                     modalLeftTitle.textContent = 'Welcome Back!';
                     modalLeftText.textContent = 'Enter your personal details to use all of site features';
                     toggleFormBtn.textContent = 'Sign In';
@@ -1374,6 +1359,7 @@
                     // Switching to login
                     signupForm.style.display = 'none';
                     loginForm.style.display = 'flex';
+                    resetForm.style.display = 'none';
                     modalLeftTitle.textContent = 'Hello, Friend!';
                     modalLeftText.textContent = 'Enter your personal details and start journey with us';
                     toggleFormBtn.textContent = 'Sign Up';
@@ -1386,10 +1372,6 @@
                 btn.addEventListener('click', () => openModal(true));
             });
 
-            signupTriggers.forEach(btn => {
-                btn.addEventListener('click', () => openModal(false));
-            });
-
             if (closeModalBtn) {
                 closeModalBtn.addEventListener('click', closeModal);
             }
@@ -1398,6 +1380,32 @@
                 toggleFormBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     toggleForms();
+                });
+            }
+
+            // Forgot password functionality
+            if (forgotPasswordLink) {
+                forgotPasswordLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    loginForm.style.display = 'none';
+                    signupForm.style.display = 'none';
+                    resetForm.style.display = 'flex';
+                    modalLeftTitle.textContent = 'Reset Your Password';
+                    modalLeftText.textContent = 'Enter your email and we will send you a reset link.';
+                    modalRightTitle.textContent = 'Password Recovery';
+                    toggleFormBtn.style.display = 'none';
+                });
+            }
+
+            if (backToLogin) {
+                backToLogin.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    resetForm.style.display = 'none';
+                    loginForm.style.display = 'flex';
+                    modalLeftTitle.textContent = 'Hello, Friend!';
+                    modalLeftText.textContent = 'Enter your personal details and start journey with us';
+                    modalRightTitle.textContent = 'Sign in to CareerCrate';
+                    toggleFormBtn.style.display = 'inline-block';
                 });
             }
 
@@ -1415,69 +1423,13 @@
                 }
             });
 
-            // Form submission handlers
-            loginForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const email = loginForm.querySelector('input[type="email"]').value;
-    const password = loginForm.querySelector('input[type="password"]').value;
-
-   signInWithEmailAndPassword(auth, email, password)
-    .then(userCredential => {
-        const user = userCredential.user;
-
-        // ✅ Admin email
-        const adminEmail = "admin@careercrate.com";
-
-        if (user.email === adminEmail) {
-            alert("Welcome Admin!");
-            window.location.href = "admindashboard.html"; // 👈 change file name if needed
-        } else {
-            alert("Welcome back, " + (user.displayName || user.email));
-            window.location.href = "index.html";
-        }
-
-        authModal.classList.remove("active");
-    })
-    .catch(error => alert("Login Error: " + error.message));
-
-
-      
-});
-
-
-           signupForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const name = signupForm.querySelector('input[type="text"]').value;
-    const email = signupForm.querySelector('input[type="email"]').value;
-    const password = signupForm.querySelector('input[type="password"]').value;
-
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-
-        // Optional: Update display name
-        return user.updateProfile({
-            displayName: name
-        });
-      })
-      .then(() => {
-        alert("Signup successful! Welcome, " + name);
-        closeModal();
-      })
-      .catch(error => {
-        alert("Signup Error: " + error.message);
-      });
-});
-
             // Stats animation
             const statsSection = document.querySelector('.stats');
             const statNumbers = {
                 usersCount: 10000,
                 resumesCount: 25000,
                 interviewsCount: 8500,
-                successRate: 92
+                successRate: 200
             };
 
             function animateStats() {
@@ -1486,8 +1438,7 @@
                         const element = document.getElementById(id);
                         if (element) {
                             const target = statNumbers[id];
-                            const isPercentage = id === 'successRate';
-                            animateNumber(element, target, 2000, isPercentage);
+                            animateNumber(element, target, 2000);
                         }
                     });
                     // Remove the event listener after animation
@@ -1495,7 +1446,7 @@
                 }
             }
 
-            function animateNumber(element, target, duration, isPercentage = false) {
+            function animateNumber(element, target, duration) {
                 const start = 0;
                 const increment = target / (duration / 16); // 16ms for ~60fps
                 let current = start;
@@ -1506,11 +1457,11 @@
                     const elapsed = Date.now() - startTime;
                     
                     if (current >= target || elapsed >= duration) {
-                        element.textContent = target + (isPercentage ? '%' : '+');
+                        element.textContent = target + '+';
                         return;
                     }
                     
-                    element.textContent = Math.floor(current) + (isPercentage ? '%' : '+');
+                    element.textContent = Math.floor(current) + '+';
                     requestAnimationFrame(updateNumber);
                 }
 
@@ -1542,49 +1493,48 @@
             }
 
             const particlesContainer = document.getElementById('particles');
-let currentParticles = 0;
-const maxParticles = 35;
+            let currentParticles = 0;
+            const maxParticles = 35;
 
-function createParticle() {
-    if (currentParticles >= maxParticles) return;
+            function createParticle() {
+                if (currentParticles >= maxParticles) return;
 
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
 
-    // Random size between 3px and 8px
-    const size = Math.random() * 5 + 3;
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
+                // Random size between 3px and 8px
+                const size = Math.random() * 5 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
 
-    // Random position at the bottom of the screen
-    particle.style.left = `${Math.random() * 100}%`;
-    particle.style.top = `${100 + Math.random() * 10}%`;
+                // Random position at the bottom of the screen
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${100 + Math.random() * 10}%`;
 
-    // Random animation duration between 5s and 15s
-    const duration = Math.random() * 10 + 5;
-    particle.style.animationDuration = `${duration}s`;
+                // Random animation duration between 5s and 15s
+                const duration = Math.random() * 10 + 5;
+                particle.style.animationDuration = `${duration}s`;
 
-    // Random delay to stagger animations
-    particle.style.animationDelay = `-${Math.random() * 5}s`;
+                // Random delay to stagger animations
+                particle.style.animationDelay = `-${Math.random() * 5}s`;
 
-    particlesContainer.appendChild(particle);
-    currentParticles++;
+                particlesContainer.appendChild(particle);
+                currentParticles++;
 
-    // Remove particle after animation ends and decrease count
-    particle.addEventListener('animationend', () => {
-        particle.remove();
-        currentParticles--;
-    });
-}
+                // Remove particle after animation ends and decrease count
+                particle.addEventListener('animationend', () => {
+                    particle.remove();
+                    currentParticles--;
+                });
+            }
 
-// Create initial particles
-for (let i = 0; i < maxParticles; i++) {
-    createParticle();
-}
+            // Create initial particles
+            for (let i = 0; i < maxParticles; i++) {
+                createParticle();
+            }
 
-// Continue creating particles periodically (only if under limit)
-setInterval(createParticle, 300);
-
+            // Continue creating particles periodically (only if under limit)
+            setInterval(createParticle, 300);
 
             // Intersection Observer for fade-in animations
             const fadeElements = document.querySelectorAll('.fade-in');
@@ -1608,184 +1558,6 @@ setInterval(createParticle, 300);
                 observer.observe(el);
             });
         });
-</script>
-<!-- Firebase Auth Script -->
-<<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    updateProfile,
-    sendPasswordResetEmail
-} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-
-// ------------------ Firebase config ------------------
-const firebaseConfig = {
-    apiKey: "AIzaSyCMTlja4NrE4Cv3_Cv79pRDEykQt8lW1XI",
-    authDomain: "carrercrate.firebaseapp.com",
-    projectId: "carrercrate",
-    storageBucket: "carrercrate.appspot.com",
-    messagingSenderId: "312167069617",
-    appId: "1:312167069617:web:a22835b5c4e45c61396f90",
-};
-
-// ------------------ Initialize Firebase ------------------
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
-
-// ------------------ DOM elements ------------------
-const loginForm = document.getElementById("loginForm");
-const signupForm = document.getElementById("signupForm");
-const resetForm = document.getElementById("resetForm");
-const forgotPasswordLink = document.getElementById("forgotPasswordLink");
-const modalLeftTitle = document.getElementById("modalLeftTitle");
-const modalLeftText = document.getElementById("modalLeftText");
-const modalRightTitle = document.getElementById("modalRightTitle");
-const toggleFormBtn = document.getElementById("toggleFormBtn");
-const authModal = document.getElementById("authModal");
-
-// ------------------ Google Login ------------------
-window.googleLogin = function () {
-    signInWithPopup(auth, provider)
-        .then(result => {
-            const user = result.user;
-            alert("Welcome " + user.displayName);
-            authModal.classList.remove("active");
-            window.location.href = "index.html"; // Google login -> normal user
-        })
-        .catch(error => alert("Google login failed: " + error.message));
-};
-
-// ------------------ Signup ------------------
-signupForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const name = this.querySelector('input[type="text"]').value;
-    const email = this.querySelector('input[type="email"]').value;
-    const password = this.querySelector('input[type="password"]').value;
-
-    createUserWithEmailAndPassword(auth, email, password)
-        .then(userCredential => updateProfile(userCredential.user, { displayName: name }))
-        .then(() => {
-            alert("Signup successful! Welcome, " + name);
-            authModal.classList.remove("active");
-            window.location.href = "index.html";
-        })
-        .catch(error => alert("Signup Error: " + error.message));
-});
-
-// ------------------ Login (Fixed Redirects) ------------------
-loginForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = this.querySelector('input[type="email"]').value.trim();
-    const password = this.querySelector('input[type="password"]').value.trim();
-
-    signInWithEmailAndPassword(auth, email, password)
-        .then(userCredential => {
-            const user = userCredential.user;
-            const adminEmail = "admin@careercrate.com";
-
-            if (user.email.toLowerCase() === adminEmail.toLowerCase()) {
-                alert("Welcome Admin!");
-                window.location.href = "admindashboard.html"; // ✅ redirect admin
-            } else {
-                alert("Welcome back, " + (user.displayName || user.email));
-                window.location.href = "index.html"; // ✅ normal user
-            }
-
-            authModal.classList.remove("active");
-        })
-        .catch(error => alert("Login Error: " + error.message));
-});
-
-// ------------------ Forgot Password ------------------
-forgotPasswordLink.addEventListener("click", function (e) {
-    e.preventDefault();
-    loginForm.style.display = "none";
-    signupForm.style.display = "none";
-    resetForm.style.display = "flex";
-    modalLeftTitle.textContent = "Reset Your Password";
-    modalLeftText.textContent = "Enter your email and we will send you a reset link.";
-    modalRightTitle.textContent = "Password Recovery";
-    toggleFormBtn.style.display = "none";
-});
-
-resetForm.querySelector(".back-to-login").addEventListener("click", function (e) {
-    e.preventDefault();
-    resetForm.style.display = "none";
-    loginForm.style.display = "flex";
-    modalLeftTitle.textContent = "Hello, Friend!";
-    modalLeftText.textContent = "Enter your personal details and start journey with us";
-    modalRightTitle.textContent = "Sign in to CareerCrate";
-    toggleFormBtn.style.display = "inline-block";
-});
-
-resetForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = this.querySelector('input[type="email"]').value;
-    if (!email) return alert("Please enter your email.");
-
-    sendPasswordResetEmail(auth, email)
-        .then(() => {
-            alert("Password reset email sent! Check your inbox.");
-            resetForm.style.display = "none";
-            loginForm.style.display = "flex";
-            modalLeftTitle.textContent = "Hello, Friend!";
-            modalLeftText.textContent = "Enter your personal details and start journey with us";
-            modalRightTitle.textContent = "Sign in to CareerCrate";
-            toggleFormBtn.style.display = "inline-block";
-        })
-        .catch(error => alert("Error: " + error.message));
-});
-</script>
-
-
     </script>
-<script>// Mobile menu toggle functionality
-const menuToggle = document.getElementById('menuToggle');
-const mobileMenu = document.getElementById('mobileMenu');
-
-if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('open');
-        // Toggle hamburger icon
-        const icon = this.querySelector('i');
-        if (mobileMenu.classList.contains('open')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
-    
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.classList.remove('open');
-            menuToggle.querySelector('i').classList.remove('fa-times');
-            menuToggle.querySelector('i').classList.add('fa-bars');
-        });
-    });
-    
-    // Mobile login button
-    const mobileLoginBtn = document.getElementById('mobileLoginBtn');
-    if (mobileLoginBtn) {
-        mobileLoginBtn.addEventListener('click', function() {
-            openModal(true);
-            mobileMenu.classList.remove('open');
-            menuToggle.querySelector('i').classList.remove('fa-times');
-            menuToggle.querySelector('i').classList.add('fa-bars');
-        });
-    }
-}
-</script>    
 </body>
-
 </html>
-
-
-
