@@ -498,6 +498,7 @@
             border-radius: 12px;
             margin-bottom: 2rem;
             border-left: 4px solid var(--primary);
+            display: none; /* Hide the summary section */
         }
 
         .feedback-summary h3 {
@@ -505,13 +506,100 @@
             color: var(--dark);
         }
 
-        .feedback-item {
+        /* Enhanced Feedback Styles */
+        .feedback-section {
             background: var(--white);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 12px;
             border: 1px solid var(--border);
             margin-bottom: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .feedback-section:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .feedback-heading {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .feedback-paragraph {
+            color: var(--dark);
+            line-height: 1.7;
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .feedback-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feedback-list li {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .feedback-list.positive li {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+        }
+
+        .feedback-list.improvement li {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning);
+        }
+
+        .feedback-list.recommendations li {
+            background: rgba(108, 99, 255, 0.1);
+            border-left: 4px solid var(--primary);
+        }
+
+        .feedback-list li:before {
+            content: '•';
+            position: absolute;
+            left: 1rem;
+            top: 0.75rem;
+            font-size: 1.5rem;
+            color: inherit;
+        }
+
+        .feedback-list.positive li:before {
+            color: var(--success);
+        }
+
+        .feedback-list.improvement li:before {
+            color: var(--warning);
+        }
+
+        .feedback-list.recommendations li:before {
+            color: var(--primary);
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.1) 0%, rgba(108, 99, 255, 0.05) 100%);
+            border-radius: 12px;
+            border: 2px solid rgba(108, 99, 255, 0.2);
         }
 
         .feedback-actions {
@@ -858,8 +946,24 @@
                 padding: 1rem;
             }
             
-            .feedback-item {
+            .feedback-section {
                 padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .feedback-heading {
+                font-size: 1.2rem;
+            }
+            
+            .feedback-list li {
+                padding: 0.5rem 0.75rem;
+                padding-left: 2rem;
+                font-size: 0.9rem;
+            }
+            
+            .score-display {
+                font-size: 1.5rem;
+                padding: 0.75rem;
             }
             
             .feedback-actions {
@@ -1664,19 +1768,11 @@
         function showFeedback(feedback) {
             showScreen('feedback');
 
-            feedbackJobRole.textContent = jobRoleInput.value || 'Not specified';
-            feedbackQuestionCount.textContent = interviewState.questionCount;
-            interviewDate.textContent = new Date().toLocaleDateString();
-            interviewMode.textContent = interviewState.interviewMode === 'voice' ? 'Voice' : 'Text';
-            
-            // Format feedback properly
             let formattedFeedback = '';
             
             if (typeof feedback === 'string') {
-                // Convert string feedback to structured format
                 formattedFeedback = formatFeedbackText(feedback);
             } else {
-                // Handle structured feedback object
                 formattedFeedback = formatStructuredFeedback(feedback);
             }
             
@@ -1692,34 +1788,48 @@
             }
         }
 
-        // Helper function to format text feedback
+        // Helper function to format text feedback professionally
         function formatFeedbackText(feedbackText) {
-            // Split feedback into sections if it contains common headings
-            const sections = feedbackText.split(/(?=Overall Score:|Strengths:|Areas for Improvement:|Technical Skills:|Communication:|Recommendations:)/i);
+            // Clean up the feedback text
+            let cleanFeedback = feedbackText
+                .replace(/\*\*(.*?)\*\*/g, '$1') // Remove markdown bold
+                .replace(/\*(.*?)\*/g, '$1') // Remove markdown italic
+                .replace(/#{1,6}\s?(.*?)(?=\n|$)/g, '$1') // Remove markdown headers
+                .replace(/-\s/g, '• ') // Convert dashes to bullets
+                .replace(/\n{3,}/g, '\n\n') // Remove excessive newlines
+                .trim();
+
+            // Split into paragraphs and format
+            const paragraphs = cleanFeedback.split(/\n\n+/);
             
             let html = '';
             
-            sections.forEach(section => {
-                if (section.trim()) {
-                    const [heading, ...content] = section.split(':');
-                    const contentText = content.join(':').trim();
-                    
-                    if (heading && contentText) {
+            paragraphs.forEach(paragraph => {
+                if (paragraph.trim()) {
+                    // Check if this looks like a heading
+                    if (paragraph.match(/^(Overall (Score|Impression)|Strengths|Areas for Improvement|Technical Skills|Communication|Recommendations|Summary)/i)) {
                         html += `
-                            <div class="feedback-item">
-                                <h4 style="color: var(--primary); margin-bottom: 0.5rem;">${heading.trim()}:</h4>
-                                <div style="white-space: pre-line; line-height: 1.6; color: var(--dark);">
-                                    ${contentText}
-                                </div>
+                            <div class="feedback-section">
+                                <h3 class="feedback-heading">${paragraph.replace(/[:.]$/, '')}</h3>
                             </div>
                         `;
-                    } else {
-                        // If no clear structure, just display as paragraphs
+                    } 
+                    // Check if this is a bullet point list
+                    else if (paragraph.includes('•') || paragraph.match(/^\s*[•\-]\s/)) {
+                        const points = paragraph.split(/[•\-]\s/).filter(point => point.trim());
                         html += `
-                            <div class="feedback-item">
-                                <div style="white-space: pre-line; line-height: 1.6; color: var(--dark);">
-                                    ${section.trim()}
-                                </div>
+                            <div class="feedback-section">
+                                <ul class="feedback-list">
+                                    ${points.map(point => `<li>${point.trim()}</li>`).join('')}
+                                </ul>
+                            </div>
+                        `;
+                    }
+                    // Regular paragraph
+                    else {
+                        html += `
+                            <div class="feedback-section">
+                                <p class="feedback-paragraph">${paragraph}</p>
                             </div>
                         `;
                     }
@@ -1727,57 +1837,80 @@
             });
             
             return html || `
-                <div class="feedback-item">
-                    <div style="white-space: pre-line; line-height: 1.6; color: var(--dark);">
-                        ${feedbackText}
-                    </div>
+                <div class="feedback-section">
+                    <p class="feedback-paragraph">${cleanFeedback}</p>
                 </div>
             `;
         }
 
-        // Helper function to format structured feedback
+        // Helper function to format structured feedback professionally
         function formatStructuredFeedback(feedback) {
             let html = '';
             
-            // Handle different feedback structures
-            if (feedback.overallScore) {
+            // Overall Score/Impression
+            if (feedback.overallScore || feedback.overallImpression) {
+                const score = feedback.overallScore ? `${feedback.overallScore}/10` : '';
+                const impression = feedback.overallImpression || '';
+                
                 html += `
-                    <div class="feedback-item">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Overall Score:</h4>
-                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--success); margin-bottom: 1rem;">
-                            ${feedback.overallScore}/10
-                        </div>
+                    <div class="feedback-section">
+                        <h3 class="feedback-heading">Overall Assessment</h3>
+                        ${score ? `<div class="score-display">${score}</div>` : ''}
+                        <p class="feedback-paragraph">${impression}</p>
                     </div>
                 `;
             }
             
+            // Strengths
             if (feedback.strengths && feedback.strengths.length > 0) {
                 html += `
-                    <div class="feedback-item">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Strengths:</h4>
-                        <ul style="line-height: 1.6; color: var(--dark);">
+                    <div class="feedback-section">
+                        <h3 class="feedback-heading">Key Strengths</h3>
+                        <ul class="feedback-list positive">
                             ${feedback.strengths.map(strength => `<li>${strength}</li>`).join('')}
                         </ul>
                     </div>
                 `;
             }
             
+            // Areas for Improvement
             if (feedback.areasForImprovement && feedback.areasForImprovement.length > 0) {
                 html += `
-                    <div class="feedback-item">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Areas for Improvement:</h4>
-                        <ul style="line-height: 1.6; color: var(--dark);">
+                    <div class="feedback-section">
+                        <h3 class="feedback-heading">Areas for Improvement</h3>
+                        <ul class="feedback-list improvement">
                             ${feedback.areasForImprovement.map(area => `<li>${area}</li>`).join('')}
                         </ul>
                     </div>
                 `;
             }
             
+            // Technical Skills
+            if (feedback.technicalSkills) {
+                html += `
+                    <div class="feedback-section">
+                        <h3 class="feedback-heading">Technical Skills Assessment</h3>
+                        <p class="feedback-paragraph">${feedback.technicalSkills}</p>
+                    </div>
+                `;
+            }
+            
+            // Communication
+            if (feedback.communication) {
+                html += `
+                    <div class="feedback-section">
+                        <h3 class="feedback-heading">Communication Skills</h3>
+                        <p class="feedback-paragraph">${feedback.communication}</p>
+                    </div>
+                `;
+            }
+            
+            // Recommendations
             if (feedback.recommendations && feedback.recommendations.length > 0) {
                 html += `
-                    <div class="feedback-item">
-                        <h4 style="color: var(--primary); margin-bottom: 0.5rem;">Recommendations:</h4>
-                        <ul style="line-height: 1.6; color: var(--dark);">
+                    <div class="feedback-section">
+                        <h3 class="feedback-heading">Recommendations</h3>
+                        <ul class="feedback-list recommendations">
                             ${feedback.recommendations.map(rec => `<li>${rec}</li>`).join('')}
                         </ul>
                     </div>
@@ -1785,10 +1918,8 @@
             }
             
             return html || `
-                <div class="feedback-item">
-                    <div style="white-space: pre-line; line-height: 1.6; color: var(--dark);">
-                        ${JSON.stringify(feedback)}
-                    </div>
+                <div class="feedback-section">
+                    <p class="feedback-paragraph">Thank you for completing the interview. Your responses have been analyzed.</p>
                 </div>
             `;
         }
