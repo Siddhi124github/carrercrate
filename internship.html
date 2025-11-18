@@ -593,6 +593,64 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+/* Mobile Menu Styles */
+.mobile-menu {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    padding: 1rem 0;
+    z-index: 999;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu.open {
+    display: flex;
+    transform: translateY(0);
+}
+
+.mobile-menu a {
+    padding: 1rem 2rem;
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu a:hover {
+    background: rgba(108, 99, 255, 0.1);
+    color: var(--primary);
+}
+
+.mobile-menu .nav-btn {
+    margin: 1rem 2rem;
+    width: calc(100% - 4rem);
+    justify-content: center;
+}
+
+/* Update existing media query */
+@media (max-width: 768px) {
+    nav {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--primary);
+        cursor: pointer;
+        z-index: 1001;
+    }
+}
+
         
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -683,12 +741,24 @@
             <a href="index.html#features">Features</a>
             <a href="resume.html" >Resume</a>
             <a href="portfolio.html">Portfolio</a>
-            <a href="internships.html"class="active">Internships</a>
+            <a href="internship.html"class="active">Internships</a>
             <a href="mock.html">Mock Interview</a>
              <a href="carrerpath.html">Career Suggestions</a>
             <a href="index.html#contact">Contact</a>
         </nav>
     </header>
+<!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home" class="active">Home</a>
+        <a href="#features">Features</a>
+        <a href="resume.html">Resume</a>
+        <a href="carrer.html">Portfolio</a>
+        <a href="internship.html">Internships</a>
+        <a href="mock.html">Mock Interview</a>
+        <a href="carrerpath.html">Career Suggestions</a>
+        <a href="#contact">Contact</a>
+        <button class="nav-btn login-trigger" id="mobileLoginBtn">Login</button>
+    </div>
 
     <div class="container">
         <!-- Hero Section -->
@@ -832,6 +902,45 @@
     
 
     <script>
+document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('open');
+                });
+            }
+
+            // Smooth scrolling for navigation links
+           document.querySelectorAll('nav a, .mobile-menu a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        if (this.getAttribute('href').startsWith('#')) {
+            e.preventDefault();}
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (mobileMenu && mobileMenu.classList.contains('open')) {
+                            mobileMenu.classList.remove('open');
+                        }
+                        
+                        // Update active nav link
+                        document.querySelectorAll('nav a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+
+
         // Header scroll effect
         window.addEventListener('scroll', function() {
             const header = document.getElementById('main-header');
